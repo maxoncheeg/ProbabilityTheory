@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Classes
@@ -53,9 +50,9 @@ namespace ProbabilityTheory.Classes
 			}
 		}
 
-		public Series GetUniformHistogram(int intervalsAmount)
+		public void GetUniformHistogram(Series series, int intervalsAmount)
 		{
-			Series series = new Series();
+			series.Points.Clear();
 			series.Name = "РАВНОМЕРНОЕ";
 
 			int i = 1;
@@ -70,13 +67,11 @@ namespace ProbabilityTheory.Classes
 				left = _uniformSelection.Min() + i * intervalLength;
 				right = _uniformSelection.Min() + (++i) * intervalLength;
 			}
-
-			return series;
 		}
 
-		public Series GetNormalHistogram(int intervalsAmount)
+		public void GetNormalHistogram(Series series, int intervalsAmount)
 		{
-			Series series = new Series();
+			series.Points.Clear();
 			series.Name = "НОРМАЛЬНОЕ";
 
 			int i = 1;
@@ -91,15 +86,13 @@ namespace ProbabilityTheory.Classes
 				left = i * intervalLength;
 				right = (++i) * intervalLength;
 			}
-
-			return series;
 		}
 
-		public Series GetExponentialHistogram(double lambda, int intervalsAmount)
+		public void GetExponentialHistogram(Series series, double lambda, int intervalsAmount)
 		{
 			_exponentialSelection.Clear();
 
-			Series series = new Series();
+			series.Points.Clear();
 			series.Name = "ЭКСПОНЕНЦИАЛЬНОЕ";
 
 			for (int j = 0; j < 1000; j++)
@@ -117,8 +110,6 @@ namespace ProbabilityTheory.Classes
 				left = _exponentialSelection.Min() + i * intervalLength;
 				right = _exponentialSelection.Min() + (++i) * intervalLength;
 			}
-
-			return series;
 		}
 	}
 }

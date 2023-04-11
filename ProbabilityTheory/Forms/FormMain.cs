@@ -1,14 +1,6 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Forms
 {
@@ -24,20 +16,14 @@ namespace ProbabilityTheory.Forms
 
 			_manager = DistributionManager.Create();
 
-			radioButtonUniformDistribution.CheckedChanged += RadioButtonUniformDistribution_CheckedChanged;
-			radioButtonNormalDistribution.CheckedChanged += RadioButtonUniformDistribution_CheckedChanged;
-			radioButtonExponentialDistribution.CheckedChanged += RadioButtonUniformDistribution_CheckedChanged;
+			radioButtonUniformDistribution.CheckedChanged += UpdateDistribution;
+			radioButtonNormalDistribution.CheckedChanged += UpdateDistribution;
+			radioButtonExponentialDistribution.CheckedChanged += UpdateDistribution;
 
 			numericUpDownIntervalsAmount.ValueChanged += NumericUpDownIntervalsAmount_ValueChanged;
 			numericUpDownLambda.ValueChanged += NumericUpDownLambda_ValueChanged;
 
 			UpdateDistribution(null,null);
-		}
-
-		private void RadioButtonUniformDistribution_CheckedChanged(object sender, EventArgs e)
-		{
-			numericUpDownIntervalsAmount.Value++;
-			numericUpDownIntervalsAmount.Value--;
 		}
 
 		private void NumericUpDownLambda_ValueChanged(object sender, EventArgs e)
@@ -55,11 +41,11 @@ namespace ProbabilityTheory.Forms
 		private void UpdateDistribution(object sender, EventArgs e)
 		{
 			if (radioButtonUniformDistribution.Checked)
-				chartHistogram.Series[0] = _manager.GetUniformHistogram(_intervals);
+				_manager.GetUniformHistogram(chartHistogram.Series[0], _intervals);
 			else if(radioButtonNormalDistribution.Checked)
-				chartHistogram.Series[0] = _manager.GetNormalHistogram(_intervals);
+				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
 			else if(radioButtonExponentialDistribution.Checked)
-				chartHistogram.Series[0] = _manager.GetExponentialHistogram(_lambda, _intervals);
+				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
 		}
 
 		private void FormMain_Load(object sender, EventArgs e)
