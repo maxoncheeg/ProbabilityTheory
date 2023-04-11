@@ -1,6 +1,7 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Forms
 {
@@ -16,14 +17,38 @@ namespace ProbabilityTheory.Forms
 
 			_manager = DistributionManager.Create();
 
-			radioButtonUniformDistribution.CheckedChanged += UpdateDistribution;
-			radioButtonNormalDistribution.CheckedChanged += UpdateDistribution;
-			radioButtonExponentialDistribution.CheckedChanged += UpdateDistribution;
+			radioButtonUniformDistribution.CheckedChanged += RadioButtonUniformDistribution_CheckedChanged; ;
+			radioButtonNormalDistribution.CheckedChanged += RadioButtonNormalDistribution_CheckedChanged; ;
+			radioButtonExponentialDistribution.CheckedChanged += RadioButtonExponentialDistribution_CheckedChanged; ;
 
 			numericUpDownIntervalsAmount.ValueChanged += NumericUpDownIntervalsAmount_ValueChanged;
 			numericUpDownLambda.ValueChanged += NumericUpDownLambda_ValueChanged;
 
 			UpdateDistribution(null,null);
+		}
+
+		private void RadioButtonExponentialDistribution_CheckedChanged(object sender, EventArgs e)
+		{
+			if (radioButtonExponentialDistribution.Checked)
+			{
+				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
+			}
+		}
+
+		private void RadioButtonNormalDistribution_CheckedChanged(object sender, EventArgs e)
+		{
+			if (radioButtonNormalDistribution.Checked)
+			{ 
+				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
+			}
+		}
+
+		private void RadioButtonUniformDistribution_CheckedChanged(object sender, EventArgs e)
+		{
+			if (radioButtonUniformDistribution.Checked)
+			{
+				_manager.GetUniformHistogram(chartHistogram.Series[0], _intervals);
+			}
 		}
 
 		private void NumericUpDownLambda_ValueChanged(object sender, EventArgs e)

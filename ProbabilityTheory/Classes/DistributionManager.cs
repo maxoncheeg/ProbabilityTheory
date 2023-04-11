@@ -67,6 +67,12 @@ namespace ProbabilityTheory.Classes
 				left = _uniformSelection.Min() + i * intervalLength;
 				right = _uniformSelection.Min() + (++i) * intervalLength;
 			}
+
+			if(series.Points.Count != intervalsAmount)
+			{
+				int valuesAmount = _uniformSelection.Count(x => x >= left && x <= _uniformSelection.Max());
+				series.Points.AddXY(Math.Round((_uniformSelection.Max() + left) / 2, 3), (double)valuesAmount / _uniformSelection.Count / intervalLength);
+			}
 		}
 
 		public void GetNormalHistogram(Series series, int intervalsAmount)
@@ -85,6 +91,12 @@ namespace ProbabilityTheory.Classes
 
 				left = i * intervalLength;
 				right = (++i) * intervalLength;
+			}
+
+			if (series.Points.Count != intervalsAmount)
+			{
+				int valuesAmount = _normalSelection.Count(x => x >= left && x <= _normalSelection.Max());
+				series.Points.AddXY(Math.Round((_normalSelection.Max() + left) / 2, 3), (double)valuesAmount / _normalSelection.Count / intervalLength);
 			}
 		}
 
@@ -109,6 +121,12 @@ namespace ProbabilityTheory.Classes
 
 				left = _exponentialSelection.Min() + i * intervalLength;
 				right = _exponentialSelection.Min() + (++i) * intervalLength;
+			}
+
+			if (series.Points.Count != intervalsAmount)
+			{
+				int valuesAmount = _exponentialSelection.Count(x => x >= left && x <= _exponentialSelection.Max());
+				series.Points.AddXY(Math.Round((_exponentialSelection.Max() + left) / 2, 3), (double)valuesAmount / _exponentialSelection.Count / intervalLength);
 			}
 		}
 	}
