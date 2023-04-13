@@ -55,23 +55,22 @@ namespace ProbabilityTheory.Classes
 			series.Points.Clear();
 			series.Name = "РАВНОМЕРНОЕ";
 
-			int i = 1;
-			double intervalLength = (_uniformSelection.Max() - _uniformSelection.Min()) / intervalsAmount,
-				left = 0, right = _uniformSelection.Min() + intervalLength;
+			double intervalLength = (_uniformSelection.Max() - _uniformSelection.Min()) / intervalsAmount;
+			List<int> counters = new List<int>();
 
-			while (right <= _uniformSelection.Max())
+			for (int i = 0; i < intervalsAmount; i++) counters.Add(0);
+
+			for (int i = 0; i < _uniformSelection.Count; i++)
 			{
-				int valuesAmount = _uniformSelection.Count(x => x >= left && x <= right);
-				series.Points.AddXY(Math.Round((right + left) / 2, 3), (double)valuesAmount / _uniformSelection.Count / intervalLength);
-
-				left = _uniformSelection.Min() + i * intervalLength;
-				right = _uniformSelection.Min() + (++i) * intervalLength;
+				int intervalIndex = (int)Math.Floor(_uniformSelection[i] / intervalLength);
+				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
 			}
 
-			if(series.Points.Count != intervalsAmount)
+			for (int i = 0; i < intervalsAmount; i++)
 			{
-				int valuesAmount = _uniformSelection.Count(x => x >= left && x <= _uniformSelection.Max());
-				series.Points.AddXY(Math.Round((_uniformSelection.Max() + left) / 2, 3), (double)valuesAmount / _uniformSelection.Count / intervalLength);
+				double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
+					   y = (double)counters[i] / _uniformSelection.Count / intervalLength;
+				series.Points.AddXY(x, y);
 			}
 		}
 
@@ -80,53 +79,50 @@ namespace ProbabilityTheory.Classes
 			series.Points.Clear();
 			series.Name = "НОРМАЛЬНОЕ";
 
-			int i = 1;
-			double intervalLength = (double)_normalSelectionNumber / intervalsAmount,
-				left = 0, right = intervalLength;
+			double intervalLength = (double)_normalSelectionNumber / intervalsAmount;
+			List<int> counters = new List<int>();
 
-			while (right <= _normalSelectionNumber)
+			for (int i = 0; i < intervalsAmount; i++) counters.Add(0);
+
+			for (int i = 0; i < _normalSelection.Count; i++)
 			{
-				int valuesAmount = _normalSelection.Count(x => x >= left && x <= right);
-				series.Points.AddXY(Math.Round((right + left) / 2, 3), (double)valuesAmount / _normalSelection.Count / intervalLength);
-
-				left = i * intervalLength;
-				right = (++i) * intervalLength;
+				int intervalIndex = (int)Math.Floor(_normalSelection[i] / intervalLength);
+				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
 			}
 
-			if (series.Points.Count != intervalsAmount)
+			for (int i = 0; i < intervalsAmount; i++)
 			{
-				int valuesAmount = _normalSelection.Count(x => x >= left && x <= _normalSelection.Max());
-				series.Points.AddXY(Math.Round((_normalSelection.Max() + left) / 2, 3), (double)valuesAmount / _normalSelection.Count / intervalLength);
+				double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
+					   y = (double)counters[i] / _normalSelection.Count / intervalLength;
+				series.Points.AddXY(x, y);
 			}
 		}
 
 		public void GetExponentialHistogram(Series series, double lambda, int intervalsAmount)
 		{
 			_exponentialSelection.Clear();
-
 			series.Points.Clear();
 			series.Name = "ЭКСПОНЕНЦИАЛЬНОЕ";
 
 			for (int j = 0; j < 1000; j++)
 				_exponentialSelection.Add(-1f / lambda * Math.Log(_random.NextDouble()));
 
-			int i = 1;
-			double intervalLength = (_exponentialSelection.Max() - _exponentialSelection.Min()) / intervalsAmount,
-				left = 0, right = _exponentialSelection.Min() + intervalLength;
+			double intervalLength = (_exponentialSelection.Max() - _exponentialSelection.Min()) / intervalsAmount;
+			List<int> counters = new List<int>();
 
-			while (right <= _exponentialSelection.Max())
+			for (int i = 0; i < intervalsAmount; i++) counters.Add(0);
+
+			for (int i = 0; i < _exponentialSelection.Count; i++)
 			{
-				int valuesAmount = _exponentialSelection.Count(x => x >= left && x <= right);
-				series.Points.AddXY(Math.Round((right + left) / 2, 3), (double)valuesAmount / _exponentialSelection.Count / intervalLength);
-
-				left = _exponentialSelection.Min() + i * intervalLength;
-				right = _exponentialSelection.Min() + (++i) * intervalLength;
+				int intervalIndex = (int)Math.Floor(_exponentialSelection[i] / intervalLength);
+				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
 			}
 
-			if (series.Points.Count != intervalsAmount)
+			for (int i = 0; i < intervalsAmount; i++)
 			{
-				int valuesAmount = _exponentialSelection.Count(x => x >= left && x <= _exponentialSelection.Max());
-				series.Points.AddXY(Math.Round((_exponentialSelection.Max() + left) / 2, 3), (double)valuesAmount / _exponentialSelection.Count / intervalLength);
+				double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
+					   y = (double)counters[i] / _exponentialSelection.Count / intervalLength;
+				series.Points.AddXY(x, y);
 			}
 		}
 	}
