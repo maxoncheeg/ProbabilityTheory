@@ -42,10 +42,13 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.numericUpDownLambda = new System.Windows.Forms.NumericUpDown();
 			this.buttonUpdateSelection = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.numericUpDownSelectionSize = new System.Windows.Forms.NumericUpDown();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLambda)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelectionSize)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// chartHistogram
@@ -160,7 +163,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.ForeColor = System.Drawing.Color.Black;
-			this.label3.Location = new System.Drawing.Point(16, 322);
+			this.label3.Location = new System.Drawing.Point(16, 292);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(132, 27);
 			this.label3.TabIndex = 6;
@@ -176,7 +179,7 @@
             0,
             0,
             65536});
-			this.numericUpDownLambda.Location = new System.Drawing.Point(153, 374);
+			this.numericUpDownLambda.Location = new System.Drawing.Point(153, 344);
 			this.numericUpDownLambda.Minimum = new decimal(new int[] {
             1,
             0,
@@ -197,7 +200,7 @@
 			this.buttonUpdateSelection.BackColor = System.Drawing.Color.White;
 			this.buttonUpdateSelection.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.buttonUpdateSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonUpdateSelection.Location = new System.Drawing.Point(77, 454);
+			this.buttonUpdateSelection.Location = new System.Drawing.Point(77, 500);
 			this.buttonUpdateSelection.Name = "buttonUpdateSelection";
 			this.buttonUpdateSelection.Size = new System.Drawing.Size(325, 70);
 			this.buttonUpdateSelection.TabIndex = 7;
@@ -205,12 +208,49 @@
 			this.buttonUpdateSelection.UseVisualStyleBackColor = false;
 			this.buttonUpdateSelection.Click += new System.EventHandler(this.buttonUpdateSelection_Click);
 			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.ForeColor = System.Drawing.Color.Black;
+			this.label4.Location = new System.Drawing.Point(16, 385);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(180, 27);
+			this.label4.TabIndex = 9;
+			this.label4.Text = "Размер выборки";
+			// 
+			// numericUpDownSelectionSize
+			// 
+			this.numericUpDownSelectionSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.numericUpDownSelectionSize.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(153, 437);
+			this.numericUpDownSelectionSize.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.numericUpDownSelectionSize.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			this.numericUpDownSelectionSize.Name = "numericUpDownSelectionSize";
+			this.numericUpDownSelectionSize.Size = new System.Drawing.Size(186, 38);
+			this.numericUpDownSelectionSize.TabIndex = 8;
+			this.numericUpDownSelectionSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numericUpDownSelectionSize.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(237)))), ((int)(((byte)(255)))));
 			this.ClientSize = new System.Drawing.Size(1136, 582);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.numericUpDownSelectionSize);
 			this.Controls.Add(this.buttonUpdateSelection);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.numericUpDownLambda);
@@ -220,7 +260,7 @@
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.chartHistogram);
 			this.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "FormMain";
 			this.Text = "Теория Вероятностей";
@@ -230,6 +270,7 @@
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLambda)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelectionSize)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -248,5 +289,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.NumericUpDown numericUpDownLambda;
 		private System.Windows.Forms.Button buttonUpdateSelection;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.NumericUpDown numericUpDownSelectionSize;
 	}
 }

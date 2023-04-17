@@ -8,6 +8,7 @@ namespace ProbabilityTheory.Classes
 	internal class DistributionManager
 	{
 		private const int _normalSelectionNumber = 20;
+		private int _selectionSize = 1000;
 
 		private List<double> _uniformSelection;
 		private List<double> _normalSelection;
@@ -23,18 +24,18 @@ namespace ProbabilityTheory.Classes
 
 			_random = new Random();
 
-			UpdateSelection();
+			UpdateSelection(_selectionSize);
 		}
 
 		public static DistributionManager Create() => new DistributionManager();
 
-		public void UpdateSelection()
+		public void UpdateSelection(int selectionSize)
 		{
 			_uniformSelection.Clear();
 			_normalSelection.Clear();
 
 			double randomValuesSum = 0;
-			for (int i = 0; i < 20000; i++)
+			for (int i = 0; i < _normalSelectionNumber * selectionSize; i++)
 			{
 				double randomValue = _random.NextDouble();
 
@@ -48,6 +49,8 @@ namespace ProbabilityTheory.Classes
 
 				randomValuesSum += randomValue;
 			}
+
+			_selectionSize = selectionSize;
 		}
 
 		public void GetUniformHistogram(Series series, int intervalsAmount)
@@ -104,7 +107,7 @@ namespace ProbabilityTheory.Classes
 			series.Points.Clear();
 			series.Name = "ЭКСПОНЕНЦИАЛЬНОЕ";
 
-			for (int j = 0; j < 1000; j++)
+			for (int j = 0; j < _selectionSize; j++)
 				_exponentialSelection.Add(-1f / lambda * Math.Log(_random.NextDouble()));
 
 			double intervalLength = (_exponentialSelection.Max() - _exponentialSelection.Min()) / intervalsAmount;
