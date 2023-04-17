@@ -1,7 +1,6 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Forms
 {
@@ -22,9 +21,10 @@ namespace ProbabilityTheory.Forms
 			radioButtonExponentialDistribution.CheckedChanged += RadioButtonExponentialDistribution_CheckedChanged; ;
 
 			numericUpDownIntervalsAmount.ValueChanged += NumericUpDownIntervalsAmount_ValueChanged;
+			numericUpDownSelectionSize.ValueChanged += buttonUpdateSelection_Click;
 			numericUpDownLambda.ValueChanged += NumericUpDownLambda_ValueChanged;
 
-			UpdateDistribution(null,null);
+			buttonUpdateSelection_Click(null,null);
 		}
 
 		private void RadioButtonExponentialDistribution_CheckedChanged(object sender, EventArgs e)
@@ -80,7 +80,7 @@ namespace ProbabilityTheory.Forms
 
 		private void buttonUpdateSelection_Click(object sender, EventArgs e)
 		{
-			_manager.UpdateSelection();
+			_manager.UpdateSelection((int)numericUpDownSelectionSize.Value);
 			UpdateDistribution(null, null);
 		}
 	}
