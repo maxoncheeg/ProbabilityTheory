@@ -16,6 +16,9 @@ namespace ProbabilityTheory.Classes
 
 		private Random _random;
 
+		public double Expectation { get; private set; }
+		public double Variance { get; private set; }
+
 		private DistributionManager()
 		{
 			_uniformSelection = new List<double>();
@@ -75,6 +78,8 @@ namespace ProbabilityTheory.Classes
 					   y = (double)counters[i] / _uniformSelection.Count / intervalLength;
 				series.Points.AddXY(x, y);
 			}
+
+			UpdateValues(_uniformSelection);
 		}
 
 		public void GetNormalHistogram(Series series, int intervalsAmount)
@@ -99,6 +104,8 @@ namespace ProbabilityTheory.Classes
 					   y = (double)counters[i] / _normalSelection.Count / intervalLength;
 				series.Points.AddXY(x, y);
 			}
+
+			UpdateValues(_normalSelection);
 		}
 
 		public void GetExponentialHistogram(Series series, double lambda, int intervalsAmount)
@@ -127,6 +134,14 @@ namespace ProbabilityTheory.Classes
 					   y = (double)counters[i] / _exponentialSelection.Count / intervalLength;
 				series.Points.AddXY(x, y);
 			}
+
+			UpdateValues(_exponentialSelection);
+		}
+
+		private void UpdateValues(List<double> selection)
+		{
+			Expectation = selection.Sum() / selection.Count;
+			Variance = selection.Sum(x => Math.Pow(x - Expectation, 2)) / selection.Count;
 		}
 	}
 }

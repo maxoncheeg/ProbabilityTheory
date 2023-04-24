@@ -44,6 +44,10 @@
 			this.buttonUpdateSelection = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.numericUpDownSelectionSize = new System.Windows.Forms.NumericUpDown();
+			this.label5 = new System.Windows.Forms.Label();
+			this.labelExpectation = new System.Windows.Forms.Label();
+			this.labelVariance = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).BeginInit();
@@ -163,7 +167,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.ForeColor = System.Drawing.Color.Black;
-			this.label3.Location = new System.Drawing.Point(16, 292);
+			this.label3.Location = new System.Drawing.Point(16, 302);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(132, 27);
 			this.label3.TabIndex = 6;
@@ -179,7 +183,7 @@
             0,
             0,
             65536});
-			this.numericUpDownLambda.Location = new System.Drawing.Point(153, 344);
+			this.numericUpDownLambda.Location = new System.Drawing.Point(153, 354);
 			this.numericUpDownLambda.Minimum = new decimal(new int[] {
             1,
             0,
@@ -200,7 +204,7 @@
 			this.buttonUpdateSelection.BackColor = System.Drawing.Color.White;
 			this.buttonUpdateSelection.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.buttonUpdateSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonUpdateSelection.Location = new System.Drawing.Point(77, 500);
+			this.buttonUpdateSelection.Location = new System.Drawing.Point(73, 573);
 			this.buttonUpdateSelection.Name = "buttonUpdateSelection";
 			this.buttonUpdateSelection.Size = new System.Drawing.Size(325, 70);
 			this.buttonUpdateSelection.TabIndex = 7;
@@ -212,7 +216,7 @@
 			// 
 			this.label4.AutoSize = true;
 			this.label4.ForeColor = System.Drawing.Color.Black;
-			this.label4.Location = new System.Drawing.Point(16, 385);
+			this.label4.Location = new System.Drawing.Point(16, 424);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(180, 27);
 			this.label4.TabIndex = 9;
@@ -222,7 +226,7 @@
 			// 
 			this.numericUpDownSelectionSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.numericUpDownSelectionSize.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(153, 437);
+			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(153, 476);
 			this.numericUpDownSelectionSize.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -243,12 +247,56 @@
             0,
             0});
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.ForeColor = System.Drawing.Color.Black;
+			this.label5.Location = new System.Drawing.Point(486, 584);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(288, 27);
+			this.label5.TabIndex = 10;
+			this.label5.Text = "Математическое ожидание";
+			// 
+			// labelExpectation
+			// 
+			this.labelExpectation.ForeColor = System.Drawing.Color.Black;
+			this.labelExpectation.Location = new System.Drawing.Point(833, 584);
+			this.labelExpectation.Name = "labelExpectation";
+			this.labelExpectation.Size = new System.Drawing.Size(288, 27);
+			this.labelExpectation.TabIndex = 11;
+			this.labelExpectation.Text = "0.000";
+			this.labelExpectation.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// labelVariance
+			// 
+			this.labelVariance.ForeColor = System.Drawing.Color.Black;
+			this.labelVariance.Location = new System.Drawing.Point(833, 616);
+			this.labelVariance.Name = "labelVariance";
+			this.labelVariance.Size = new System.Drawing.Size(288, 27);
+			this.labelVariance.TabIndex = 13;
+			this.labelVariance.Text = "0.000";
+			this.labelVariance.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.ForeColor = System.Drawing.Color.Black;
+			this.label8.Location = new System.Drawing.Point(486, 616);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(120, 27);
+			this.label8.TabIndex = 12;
+			this.label8.Text = "Дисперсия";
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(237)))), ((int)(((byte)(255)))));
-			this.ClientSize = new System.Drawing.Size(1136, 582);
+			this.ClientSize = new System.Drawing.Size(1136, 657);
+			this.Controls.Add(this.labelVariance);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.labelExpectation);
+			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.numericUpDownSelectionSize);
 			this.Controls.Add(this.buttonUpdateSelection);
@@ -291,5 +339,9 @@
 		private System.Windows.Forms.Button buttonUpdateSelection;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.NumericUpDown numericUpDownSelectionSize;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label labelExpectation;
+		private System.Windows.Forms.Label labelVariance;
+		private System.Windows.Forms.Label label8;
 	}
 }

@@ -31,15 +31,15 @@ namespace ProbabilityTheory.Forms
 		{
 			if (radioButtonExponentialDistribution.Checked)
 			{
-				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
+				UpdateDistribution(null, null);
 			}
 		}
 
 		private void RadioButtonNormalDistribution_CheckedChanged(object sender, EventArgs e)
 		{
 			if (radioButtonNormalDistribution.Checked)
-			{ 
-				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
+			{
+				UpdateDistribution(null, null);
 			}
 		}
 
@@ -47,7 +47,7 @@ namespace ProbabilityTheory.Forms
 		{
 			if (radioButtonUniformDistribution.Checked)
 			{
-				_manager.GetUniformHistogram(chartHistogram.Series[0], _intervals);
+				UpdateDistribution(null, null);
 			}
 		}
 
@@ -71,6 +71,9 @@ namespace ProbabilityTheory.Forms
 				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
 			else if(radioButtonExponentialDistribution.Checked)
 				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
+
+			labelExpectation.Text = Math.Round(_manager.Expectation, 4).ToString();
+			labelVariance.Text = Math.Round(_manager.Variance, 4).ToString();
 		}
 
 		private void FormMain_Load(object sender, EventArgs e)
