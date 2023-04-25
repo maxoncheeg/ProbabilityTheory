@@ -10,14 +10,16 @@ namespace ProbabilityTheory.Classes
 		private const int _normalSelectionNumber = 20;
 		private int _selectionSize = 1000;
 
-		private List<double> _uniformSelection;
-		private List<double> _normalSelection;
-		private List<double> _exponentialSelection;
+		private readonly List<double> _uniformSelection;
+		private readonly List<double> _normalSelection;
+		private readonly List<double> _exponentialSelection;
 
-		private Random _random;
+		private readonly Random _random;
 
 		public double Expectation { get; private set; }
 		public double Variance { get; private set; }
+		public double Mode { get; private set; }
+		public double Median { get; private set; }
 
 		private DistributionManager()
 		{
@@ -79,6 +81,7 @@ namespace ProbabilityTheory.Classes
 				series.Points.AddXY(x, y);
 			}
 
+			Mode = GetMode(series, intervalLength);
 			UpdateValues(_uniformSelection);
 		}
 
@@ -105,6 +108,7 @@ namespace ProbabilityTheory.Classes
 				series.Points.AddXY(x, y);
 			}
 
+			Mode = GetMode(series, intervalLength);
 			UpdateValues(_normalSelection);
 		}
 
@@ -135,13 +139,46 @@ namespace ProbabilityTheory.Classes
 				series.Points.AddXY(x, y);
 			}
 
+			Mode = GetMode(series, intervalLength);
 			UpdateValues(_exponentialSelection);
 		}
 
 		private void UpdateValues(List<double> selection)
 		{
-			Expectation = selection.Sum() / selection.Count;
+			Expectation = selection.Average();
 			Variance = selection.Sum(x => Math.Pow(x - Expectation, 2)) / selection.Count;
+			selection.Sort();
+			
+			if(selection.Count % 2 == 0)
+				Median = (selection[selection.Count / 2] + selection[selection.Count / 2 - 1]) / 2;
+			else
+				Median = selection[selection.Count / 2];
+		}
+
+		private static double GetMode(Series series, double intervalLength)
+		{
+			double maxY = series.Points[0].YValues[0], XofMaxY = series.Points[0].XValue;
+			int indexMax = 0;
+
+			for (int i = 1; i < series.Points.Count; i++)
+				if(series.Points[i].YValues[0] > maxY)
+				{
+					maxY = series.Points[i].YValues[0];
+					XofMaxY = series.Points[i].XValue;
+					indexMax = i;
+				}
+
+			double X1 = XofMaxY - intervalLength / 2,
+				   X2 = XofMaxY + intervalLength / 2,
+				   Y1 = indexMax == 0 ? 0 : series.Points[indexMax - 1].YValues[0],
+				   Y2 = indexMax == series.Points.Count - 1 ? 0 : series.Points[indexMax + 1].YValues[0];
+
+			double k1 = (maxY - Y1) / (X2 - X1),
+				   b1 = Y1 - X1 * k1,
+				   k2 = (maxY - Y2) / (X1 - X2),
+				   b2 = Y2 - X2 * k2;
+
+			return (b2 - b1) / (k1 - k2);
 		}
 	}
 }

@@ -65,6 +65,8 @@ namespace ProbabilityTheory.Forms
 
 		private void UpdateDistribution(object sender, EventArgs e)
 		{
+			labelLambda.Enabled = numericUpDownLambda.Enabled = radioButtonExponentialDistribution.Checked;
+
 			if (radioButtonUniformDistribution.Checked)
 				_manager.GetUniformHistogram(chartHistogram.Series[0], _intervals);
 			else if(radioButtonNormalDistribution.Checked)
@@ -74,6 +76,8 @@ namespace ProbabilityTheory.Forms
 
 			labelExpectation.Text = Math.Round(_manager.Expectation, 4).ToString();
 			labelVariance.Text = Math.Round(_manager.Variance, 4).ToString();
+			labelMedian.Text = Math.Round(_manager.Median, 4).ToString();
+			labelMode.Text = Math.Round(_manager.Mode, 4).ToString();
 		}
 
 		private void FormMain_Load(object sender, EventArgs e)
