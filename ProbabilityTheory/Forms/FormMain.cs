@@ -7,8 +7,7 @@ namespace ProbabilityTheory.Forms
 	public partial class FormMain : Form
 	{
 		private int _intervals = 5;
-		private double _lambda = 0.1f;
-		private DistributionManager _manager;
+		private readonly DistributionManager _manager;
 
 		public FormMain()
 		{
@@ -22,7 +21,7 @@ namespace ProbabilityTheory.Forms
 
 			numericUpDownIntervalsAmount.ValueChanged += NumericUpDownIntervalsAmount_ValueChanged;
 			numericUpDownSelectionSize.ValueChanged += buttonUpdateSelection_Click;
-			numericUpDownLambda.ValueChanged += NumericUpDownLambda_ValueChanged;
+			numericUpDownLambda.ValueChanged += buttonUpdateSelection_Click;
 
 			buttonUpdateSelection_Click(null,null);
 		}
@@ -30,31 +29,19 @@ namespace ProbabilityTheory.Forms
 		private void RadioButtonExponentialDistribution_CheckedChanged(object sender, EventArgs e)
 		{
 			if (radioButtonExponentialDistribution.Checked)
-			{
 				UpdateDistribution(null, null);
-			}
 		}
 
 		private void RadioButtonNormalDistribution_CheckedChanged(object sender, EventArgs e)
 		{
 			if (radioButtonNormalDistribution.Checked)
-			{
 				UpdateDistribution(null, null);
-			}
 		}
 
 		private void RadioButtonUniformDistribution_CheckedChanged(object sender, EventArgs e)
 		{
 			if (radioButtonUniformDistribution.Checked)
-			{
 				UpdateDistribution(null, null);
-			}
-		}
-
-		private void NumericUpDownLambda_ValueChanged(object sender, EventArgs e)
-		{
-			_lambda = (double)numericUpDownLambda.Value;
-			UpdateDistribution(null, null);
 		}
 
 		private void NumericUpDownIntervalsAmount_ValueChanged(object sender, EventArgs e)
@@ -72,7 +59,7 @@ namespace ProbabilityTheory.Forms
 			else if(radioButtonNormalDistribution.Checked)
 				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
 			else if(radioButtonExponentialDistribution.Checked)
-				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
+				_manager.GetExponentialHistogram(chartHistogram.Series[0], _intervals);
 
 			labelExpectation.Text = Math.Round(_manager.Expectation, 4).ToString();
 			labelVariance.Text = Math.Round(_manager.Variance, 4).ToString();
@@ -87,7 +74,7 @@ namespace ProbabilityTheory.Forms
 
 		private void buttonUpdateSelection_Click(object sender, EventArgs e)
 		{
-			_manager.UpdateSelection((int)numericUpDownSelectionSize.Value);
+			_manager.UpdateSelection((int)numericUpDownSelectionSize.Value, (double)numericUpDownLambda.Value);
 			UpdateDistribution(null, null);
 		}
 	}
