@@ -34,10 +34,14 @@ namespace ProbabilityTheory.Classes
 
 		public static DistributionManager Create() => new DistributionManager();
 
-		public void UpdateSelection(int selectionSize)
+		public void UpdateSelection(int selectionSize, double lambda = 0.1f)
 		{
+			if (lambda < 0.1f) lambda = 0.1f;
+			else if (selectionSize < 0) selectionSize = 0;
+
 			_uniformSelection.Clear();
 			_normalSelection.Clear();
+			_exponentialSelection.Clear();
 
 			double randomValuesSum = 0;
 			for (int i = 0; i < _normalSelectionNumber * selectionSize; i++)
@@ -48,6 +52,7 @@ namespace ProbabilityTheory.Classes
 				{
 					_normalSelection.Add(randomValuesSum);
 					_uniformSelection.Add(randomValue);
+					_exponentialSelection.Add(-1f / lambda * Math.Log(randomValue));
 
 					randomValuesSum = 0;
 				}
@@ -74,15 +79,18 @@ namespace ProbabilityTheory.Classes
 				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
 			}
 
-			for (int i = 0; i < intervalsAmount; i++)
+			if (_uniformSelection.Count != 0)
 			{
-				double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
-					   y = (double)counters[i] / _uniformSelection.Count / intervalLength;
-				series.Points.AddXY(x, y);
-			}
+				for (int i = 0; i < intervalsAmount; i++)
+				{
+					double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
+						   y = (double)counters[i] / _uniformSelection.Count / intervalLength;
+					series.Points.AddXY(x, y);
+				}
 
-			Mode = GetMode(series, intervalLength);
-			UpdateValues(_uniformSelection);
+				Mode = GetMode(series, intervalLength);
+				UpdateValues(_uniformSelection);
+			}
 		}
 
 		public void GetNormalHistogram(Series series, int intervalsAmount)
@@ -101,25 +109,24 @@ namespace ProbabilityTheory.Classes
 				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
 			}
 
-			for (int i = 0; i < intervalsAmount; i++)
+			if (_normalSelection.Count != 0)
 			{
-				double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
-					   y = (double)counters[i] / _normalSelection.Count / intervalLength;
-				series.Points.AddXY(x, y);
-			}
+				for (int i = 0; i < intervalsAmount; i++)
+				{
+					double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
+						   y = (double)counters[i] / _normalSelection.Count / intervalLength;
+					series.Points.AddXY(x, y);
+				}
 
-			Mode = GetMode(series, intervalLength);
-			UpdateValues(_normalSelection);
+				Mode = GetMode(series, intervalLength);
+				UpdateValues(_normalSelection);
+			}
 		}
 
-		public void GetExponentialHistogram(Series series, double lambda, int intervalsAmount)
+		public void GetExponentialHistogram(Series series, int intervalsAmount)
 		{
-			_exponentialSelection.Clear();
 			series.Points.Clear();
 			series.Name = "ЭКСПОНЕНЦИАЛЬНОЕ";
-
-			for (int j = 0; j < _selectionSize; j++)
-				_exponentialSelection.Add(-1f / lambda * Math.Log(_random.NextDouble()));
 
 			double intervalLength = (_exponentialSelection.Max() - _exponentialSelection.Min()) / intervalsAmount;
 			List<int> counters = new List<int>();
@@ -132,15 +139,18 @@ namespace ProbabilityTheory.Classes
 				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
 			}
 
-			for (int i = 0; i < intervalsAmount; i++)
+			if (_exponentialSelection.Count != 0)
 			{
-				double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
-					   y = (double)counters[i] / _exponentialSelection.Count / intervalLength;
-				series.Points.AddXY(x, y);
-			}
+				for (int i = 0; i < intervalsAmount; i++)
+				{
+					double x = Math.Round(((i + 1) * intervalLength + i * intervalLength) / 2, 3),
+						   y = (double)counters[i] / _exponentialSelection.Count / intervalLength;
+					series.Points.AddXY(x, y);
+				}
 
-			Mode = GetMode(series, intervalLength);
-			UpdateValues(_exponentialSelection);
+				Mode = GetMode(series, intervalLength);
+				UpdateValues(_exponentialSelection);
+			}
 		}
 
 		private void UpdateValues(List<double> selection)
