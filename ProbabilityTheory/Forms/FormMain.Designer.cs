@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.chartHistogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -63,17 +63,17 @@
 			// 
 			this.chartHistogram.BorderSkin.BackColor = System.Drawing.Color.White;
 			this.chartHistogram.BorderSkin.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-			chartArea4.Name = "ChartArea1";
-			this.chartHistogram.ChartAreas.Add(chartArea4);
-			legend4.Name = "Legend1";
-			this.chartHistogram.Legends.Add(legend4);
+			chartArea2.Name = "ChartArea1";
+			this.chartHistogram.ChartAreas.Add(chartArea2);
+			legend2.Name = "Legend1";
+			this.chartHistogram.Legends.Add(legend2);
 			this.chartHistogram.Location = new System.Drawing.Point(491, 44);
 			this.chartHistogram.Name = "chartHistogram";
 			this.chartHistogram.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-			series4.ChartArea = "ChartArea1";
-			series4.Legend = "Legend1";
-			series4.Name = "Series1";
-			this.chartHistogram.Series.Add(series4);
+			series2.ChartArea = "ChartArea1";
+			series2.Legend = "Legend1";
+			series2.Name = "Series1";
+			this.chartHistogram.Series.Add(series2);
 			this.chartHistogram.Size = new System.Drawing.Size(630, 526);
 			this.chartHistogram.TabIndex = 0;
 			this.chartHistogram.Text = "chart1";
@@ -214,7 +214,6 @@
 			this.buttonUpdateSelection.TabIndex = 7;
 			this.buttonUpdateSelection.Text = "Новая выборка";
 			this.buttonUpdateSelection.UseVisualStyleBackColor = false;
-			this.buttonUpdateSelection.Click += new System.EventHandler(this.buttonUpdateSelection_Click);
 			// 
 			// label4
 			// 
