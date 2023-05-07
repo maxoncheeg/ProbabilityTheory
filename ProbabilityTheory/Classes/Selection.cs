@@ -13,6 +13,7 @@ namespace ProbabilityTheory.Classes
 		public double Median { get; private set; }
 		public string Name { get; private set; }
 
+
 		private Selection(List<double> Values, double Range) 
 		{ 
 			this.Values = Values;

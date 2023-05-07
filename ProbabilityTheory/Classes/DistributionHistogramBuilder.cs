@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Classes
@@ -24,27 +25,51 @@ namespace ProbabilityTheory.Classes
 
 		public void BuildHistogram(Selection selection, int intervalsAmount)
 		{
+			//if(intervalsAmount <= 0 || selection == null) return;
+
+			//Histogram.Points.Clear();
+			//Histogram.Name = selection.Name;
+
+			//_intervalLength = selection.Range / intervalsAmount;
+
+			//List<int> counters = new List<int>();
+			//for (int i = 0; i < intervalsAmount; i++) counters.Add(0);
+
+			//for (int i = 0; i < selection.Values.Count; i++)
+			//{
+			//	int intervalIndex = (int)Math.Floor(selection.Values[i] / _intervalLength);
+			//	if (intervalIndex < 0) intervalIndex = 0;
+			//	counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
+			//}
+
+			//if (selection.Values.Count != 0)
+			//	for (int i = 0; i < intervalsAmount; i++)
+			//	{
+			//		double x = Math.Round(((i + 1) * _intervalLength + i * _intervalLength) / 2, 3),
+			//			   y = (double)counters[i] / selection.Values.Count / _intervalLength;
+			//		Histogram.Points.AddXY(x, y);
+			//	}
+
+			if (intervalsAmount <= 0 || selection == null) return;
+
 			Histogram.Points.Clear();
 			Histogram.Name = selection.Name;
+			double min = selection.Values.Min();
+			_intervalLength = (selection.Values.Max() - min) / intervalsAmount;
+			double right = min + _intervalLength;
 
-			_intervalLength = selection.Range / intervalsAmount;
-
-			List<int> counters = new List<int>();
-			for (int i = 0; i < intervalsAmount; i++) counters.Add(0);
-
-			for (int i = 0; i < selection.Values.Count; i++)
+			for (int i = 0, counter = 0; i < selection.Values.Count; i++, counter++)
 			{
-				int intervalIndex = (int)Math.Floor(selection.Values[i] / _intervalLength);
-				counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
-			}
-
-			if (selection.Values.Count != 0)
-				for (int i = 0; i < intervalsAmount; i++)
+				if (selection.Values[i] > right || i + 1 == selection.Values.Count)
 				{
-					double x = Math.Round(((i + 1) * _intervalLength + i * _intervalLength) / 2, 3),
-						   y = (double)counters[i] / selection.Values.Count / _intervalLength;
+					double x = Math.Round(right - _intervalLength / 2, 3),
+						   y = (double)counter / selection.Values.Count / _intervalLength;
 					Histogram.Points.AddXY(x, y);
+
+					counter = 0;
+					right += _intervalLength;
 				}
+			}
 		}
 
 		public double GetCurrentMode()
