@@ -1,15 +1,7 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Forms
 {
@@ -23,9 +15,15 @@ namespace ProbabilityTheory.Forms
 			_application = new Microsoft.Office.Interop.Excel.Application();
 
 			buttonCalculate.Click += OnCalculateClick;
+			Load += FormIntervals_Load;
 		}
 
-		private string ConvertToString(ConfidenceInterval interval) => $"{interval.Selection.Values.Count} {interval.Gamma} ({Math.Round(interval.LeftBoundary, 2)};{Math.Round(interval.RightBoundary, 2)})";
+		private void FormIntervals_Load(object sender, EventArgs e)
+		{
+			FormPlacer.ToScreenCenter(this);
+		}
+
+		private string ConvertToString(ConfidenceInterval interval) => $"N={interval.Selection.Values.Count} Gamma={interval.Gamma} ({Math.Round(interval.LeftBoundary, 2)}; {Math.Round(interval.RightBoundary, 2)})";
 
 		private void OnCalculateClick(object sender, EventArgs e)
 		{
@@ -43,8 +41,7 @@ namespace ProbabilityTheory.Forms
 			chartHistogramBig.Series[0].Name = "N = 500";
 			chartHistogramSmall.Series[0].Name = "N = 50";
 
-			using (Stream stream = File.Open("jordan.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite))
-			using (StreamWriter writer = new StreamWriter(stream))
+			using (StreamWriter writer = new StreamWriter("confidence-intervals.txt", false))
 			{
 				writer.WriteLine($"m={(double)numericUpDownExpectation.Value}, d={(double)numericUpDownDeviation.Value}");
 
@@ -76,6 +73,8 @@ namespace ProbabilityTheory.Forms
 				writer.WriteLine(ConvertToString(ConfidenceInterval.Variance(selectionSmall, 0.85)));
 
 			}
+
+			System.Diagnostics.Process.Start("confidence-intervals.txt");
 		}
 	}
 }

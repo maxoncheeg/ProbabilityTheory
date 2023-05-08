@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-			System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-			System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			this.chartHistogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -52,6 +52,7 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.labelMode = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
+			this.buttonIntervals = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).BeginInit();
@@ -63,17 +64,17 @@
 			// 
 			this.chartHistogram.BorderSkin.BackColor = System.Drawing.Color.White;
 			this.chartHistogram.BorderSkin.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-			chartArea2.Name = "ChartArea1";
-			this.chartHistogram.ChartAreas.Add(chartArea2);
-			legend2.Name = "Legend1";
-			this.chartHistogram.Legends.Add(legend2);
+			chartArea1.Name = "ChartArea1";
+			this.chartHistogram.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.chartHistogram.Legends.Add(legend1);
 			this.chartHistogram.Location = new System.Drawing.Point(491, 44);
 			this.chartHistogram.Name = "chartHistogram";
 			this.chartHistogram.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-			series2.ChartArea = "ChartArea1";
-			series2.Legend = "Legend1";
-			series2.Name = "Series1";
-			this.chartHistogram.Series.Add(series2);
+			series1.ChartArea = "ChartArea1";
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.chartHistogram.Series.Add(series1);
 			this.chartHistogram.Size = new System.Drawing.Size(630, 526);
 			this.chartHistogram.TabIndex = 0;
 			this.chartHistogram.Text = "chart1";
@@ -330,12 +331,27 @@
 			this.label10.TabIndex = 16;
 			this.label10.Text = "Мода";
 			// 
+			// buttonIntervals
+			// 
+			this.buttonIntervals.BackColor = System.Drawing.Color.White;
+			this.buttonIntervals.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.buttonIntervals.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonIntervals.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 8F);
+			this.buttonIntervals.Location = new System.Drawing.Point(739, 9);
+			this.buttonIntervals.Name = "buttonIntervals";
+			this.buttonIntervals.Size = new System.Drawing.Size(382, 29);
+			this.buttonIntervals.TabIndex = 18;
+			this.buttonIntervals.Text = "Доверительные интервалы";
+			this.buttonIntervals.UseVisualStyleBackColor = false;
+			this.buttonIntervals.Click += new System.EventHandler(this.buttonIntervals_Click);
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(237)))), ((int)(((byte)(255)))));
 			this.ClientSize = new System.Drawing.Size(1136, 727);
+			this.Controls.Add(this.buttonIntervals);
 			this.Controls.Add(this.labelMode);
 			this.Controls.Add(this.label10);
 			this.Controls.Add(this.labelMedian);
@@ -394,5 +410,6 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Label labelMode;
 		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.Button buttonIntervals;
 	}
 }

@@ -14,7 +14,7 @@ namespace ProbabilityTheory
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FormIntervals());
+			Application.Run(new FormMain());
 		}
 	}
 }

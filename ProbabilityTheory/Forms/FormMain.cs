@@ -83,5 +83,11 @@ namespace ProbabilityTheory.Forms
 			labelMedian.Text = Math.Round(currentSelection.Median, 4).ToString();
 			labelMode.Text = Math.Round(_builder.GetCurrentMode(), 4).ToString();
 		}
+
+		private void buttonIntervals_Click(object sender, EventArgs e)
+		{
+			FormIntervals form = new FormIntervals();
+			form.ShowDialog();
+		}
 	}
 }
