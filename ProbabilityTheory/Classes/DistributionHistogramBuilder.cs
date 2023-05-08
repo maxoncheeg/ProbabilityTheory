@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -25,31 +24,6 @@ namespace ProbabilityTheory.Classes
 
 		public void BuildHistogram(Selection selection, int intervalsAmount)
 		{
-			//if(intervalsAmount <= 0 || selection == null) return;
-
-			//Histogram.Points.Clear();
-			//Histogram.Name = selection.Name;
-
-			//_intervalLength = selection.Range / intervalsAmount;
-
-			//List<int> counters = new List<int>();
-			//for (int i = 0; i < intervalsAmount; i++) counters.Add(0);
-
-			//for (int i = 0; i < selection.Values.Count; i++)
-			//{
-			//	int intervalIndex = (int)Math.Floor(selection.Values[i] / _intervalLength);
-			//	if (intervalIndex < 0) intervalIndex = 0;
-			//	counters[intervalIndex >= counters.Count ? counters.Count - 1 : intervalIndex]++;
-			//}
-
-			//if (selection.Values.Count != 0)
-			//	for (int i = 0; i < intervalsAmount; i++)
-			//	{
-			//		double x = Math.Round(((i + 1) * _intervalLength + i * _intervalLength) / 2, 3),
-			//			   y = (double)counters[i] / selection.Values.Count / _intervalLength;
-			//		Histogram.Points.AddXY(x, y);
-			//	}
-
 			if (intervalsAmount <= 0 || selection == null) return;
 
 			Histogram.Points.Clear();

@@ -1,9 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProbabilityTheory.Classes
 {
@@ -24,8 +21,6 @@ namespace ProbabilityTheory.Classes
 
 		public static ConfidenceInterval Expectation(Selection selection, double gamma)
 		{
-			//Application excel = new Application();
-
 			double alpha = 1f - gamma,
 				t = excel.WorksheetFunction.TInv(alpha / 2, selection.Values.Count - 1),
 				avgX = selection.Values.Average(),
@@ -37,8 +32,6 @@ namespace ProbabilityTheory.Classes
 
 		public static ConfidenceInterval ExpectationByVariance(Selection selection, double gamma, double variance)
 		{
-			//Application excel = new Application();
-
 			double z = excel.WorksheetFunction.Norm_S_Inv((1f + gamma) / 2),
 				delta = z * Math.Sqrt(variance / selection.Values.Count),
 				avgX = selection.Values.Average();
@@ -48,8 +41,6 @@ namespace ProbabilityTheory.Classes
 
 		public static ConfidenceInterval Variance(Selection selection, double gamma)
 		{
-			//Application excel = new Application();
-
 			double alpha = 1f - gamma,
 				xi1 = excel.WorksheetFunction.ChiSq_Inv(1f - alpha / 2, selection.Values.Count - 1),
 				xi2 = excel.WorksheetFunction.ChiSq_Inv(alpha / 2, selection.Values.Count - 1),
@@ -61,8 +52,6 @@ namespace ProbabilityTheory.Classes
 
 		public static ConfidenceInterval VarianceByExpectation(Selection selection, double gamma, double expectation)
 		{
-			//Application excel = new Application();
-
 			double alpha = 1f - gamma,
 				xi1 = excel.WorksheetFunction.ChiSq_Inv(1f - alpha / 2, selection.Values.Count - 1),
 				xi2 = excel.WorksheetFunction.ChiSq_Inv(alpha / 2, selection.Values.Count - 1),
