@@ -7,17 +7,15 @@ namespace ProbabilityTheory.Classes
 	internal class Selection
 	{
 		public List<double> Values { get; private set; }
-		public double Range { get; private set; }
 		public double Expectation { get; private set; }
 		public double Variance { get; private set; }
 		public double Median { get; private set; }
-		public string Name { get; private set; }
+		public string Name { get; protected set; }
 
 
-		private Selection(List<double> Values, double Range) 
+		protected Selection(List<double> Values) 
 		{ 
 			this.Values = Values;
-			this.Range = Range;
 
 			CalculateProperties();
 		}
@@ -26,19 +24,17 @@ namespace ProbabilityTheory.Classes
 		{
 			Random _random = new Random();
 			List<double> values = new List<double>();
-			double range = 1f;
 
 			for (int i = 0; i < selectionSize; i++)
 				values.Add(_random.NextDouble());
 
-			return new Selection(values, range) { Name = "Равномерное" };
+			return new Selection(values) { Name = "Равномерное" };
 		}
 
 		public static Selection GetNormalSelection(int selectionSize, int randomValuesAmount)
 		{
 			Random _random = new Random();
 			List<double> values = new List<double>();
-			double range = randomValuesAmount;
 
 			for (int i = 0; i < selectionSize; i++)
 			{
@@ -48,16 +44,13 @@ namespace ProbabilityTheory.Classes
 				values.Add(value);
 			}
 
-			return new Selection(values, range) { Name = "Нормальное" };
+			return new Selection(values) { Name = "Нормальное" };
 		}
 
 		public static Selection GetNormalSelection(int selectionSize, int randomValuesAmount, double expectation, double deviation)
 		{
 			Random _random = new Random();
 			List<double> values = new List<double>();
-
-			double maxZ = (randomValuesAmount - randomValuesAmount / 2) / Math.Sqrt(randomValuesAmount / 12),
-				   range = maxZ * deviation + expectation;
 
 			for (int i = 0; i < selectionSize; i++)
 			{
@@ -71,21 +64,21 @@ namespace ProbabilityTheory.Classes
 				values.Add(x);
 			}
 
-			return new Selection(values, range) { Name = "Нормальное с параметрами" };
+			return new Selection(values) { Name = "Нормальное с параметрами" };
 		}
 
-		public static Selection GetExponentialSelection(int selectionSize, double lambda)
+		public static double GetKolmogorovValue(double x, int n)
 		{
-			Random _random = new Random();
-			List<double> values = new List<double>();
-			double range;
+			double lambda = 0;
+			for (int k = -n; k <= n; k++)
+				lambda += Math.Pow(-1, k)* Math.Exp(-2f * Math.Pow(k * x, 2));
 
-			for (int i = 0; i < selectionSize; i++)
-				values.Add(-1f / lambda * Math.Log(_random.NextDouble()));
+			return lambda < 0 ? 0 : lambda;
+		}
 
-			range = values.Max() - values.Min();
-
-			return new Selection(values, range) { Name = "Экспоненциальное" };
+		public static double GetExponentialDensityValue(double x, double lambda)
+		{
+			return lambda * Math.Exp(-lambda * x);
 		}
 
 		private void CalculateProperties() 

@@ -34,13 +34,10 @@
 			this.chartHistogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.label1 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.radioButtonExponentialDistribution = new System.Windows.Forms.RadioButton();
 			this.radioButtonNormalDistribution = new System.Windows.Forms.RadioButton();
 			this.radioButtonUniformDistribution = new System.Windows.Forms.RadioButton();
 			this.numericUpDownIntervalsAmount = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
-			this.labelLambda = new System.Windows.Forms.Label();
-			this.numericUpDownLambda = new System.Windows.Forms.NumericUpDown();
 			this.buttonUpdateSelection = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.numericUpDownSelectionSize = new System.Windows.Forms.NumericUpDown();
@@ -53,10 +50,10 @@
 			this.labelMode = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
 			this.buttonIntervals = new System.Windows.Forms.Button();
+			this.buttonExponential = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLambda)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelectionSize)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -91,7 +88,6 @@
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.radioButtonExponentialDistribution);
 			this.groupBox1.Controls.Add(this.radioButtonNormalDistribution);
 			this.groupBox1.Controls.Add(this.radioButtonUniformDistribution);
 			this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -103,23 +99,12 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Распределение";
 			// 
-			// radioButtonExponentialDistribution
-			// 
-			this.radioButtonExponentialDistribution.AutoSize = true;
-			this.radioButtonExponentialDistribution.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.radioButtonExponentialDistribution.Location = new System.Drawing.Point(120, 108);
-			this.radioButtonExponentialDistribution.Name = "radioButtonExponentialDistribution";
-			this.radioButtonExponentialDistribution.Size = new System.Drawing.Size(234, 32);
-			this.radioButtonExponentialDistribution.TabIndex = 2;
-			this.radioButtonExponentialDistribution.Text = "Экспоненциальное";
-			this.radioButtonExponentialDistribution.UseVisualStyleBackColor = true;
-			// 
 			// radioButtonNormalDistribution
 			// 
 			this.radioButtonNormalDistribution.AutoSize = true;
 			this.radioButtonNormalDistribution.Checked = true;
 			this.radioButtonNormalDistribution.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.radioButtonNormalDistribution.Location = new System.Drawing.Point(120, 70);
+			this.radioButtonNormalDistribution.Location = new System.Drawing.Point(253, 72);
 			this.radioButtonNormalDistribution.Name = "radioButtonNormalDistribution";
 			this.radioButtonNormalDistribution.Size = new System.Drawing.Size(162, 32);
 			this.radioButtonNormalDistribution.TabIndex = 1;
@@ -131,7 +116,7 @@
 			// 
 			this.radioButtonUniformDistribution.AutoSize = true;
 			this.radioButtonUniformDistribution.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.radioButtonUniformDistribution.Location = new System.Drawing.Point(120, 32);
+			this.radioButtonUniformDistribution.Location = new System.Drawing.Point(33, 72);
 			this.radioButtonUniformDistribution.Name = "radioButtonUniformDistribution";
 			this.radioButtonUniformDistribution.Size = new System.Drawing.Size(174, 32);
 			this.radioButtonUniformDistribution.TabIndex = 0;
@@ -168,50 +153,14 @@
 			this.label2.TabIndex = 4;
 			this.label2.Text = "Количество интервалов";
 			// 
-			// labelLambda
-			// 
-			this.labelLambda.AutoSize = true;
-			this.labelLambda.ForeColor = System.Drawing.Color.Black;
-			this.labelLambda.Location = new System.Drawing.Point(16, 431);
-			this.labelLambda.Name = "labelLambda";
-			this.labelLambda.Size = new System.Drawing.Size(132, 27);
-			this.labelLambda.TabIndex = 6;
-			this.labelLambda.Text = "Значение λ";
-			// 
-			// numericUpDownLambda
-			// 
-			this.numericUpDownLambda.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.numericUpDownLambda.DecimalPlaces = 1;
-			this.numericUpDownLambda.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.numericUpDownLambda.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDownLambda.Location = new System.Drawing.Point(153, 483);
-			this.numericUpDownLambda.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.numericUpDownLambda.Name = "numericUpDownLambda";
-			this.numericUpDownLambda.Size = new System.Drawing.Size(186, 38);
-			this.numericUpDownLambda.TabIndex = 5;
-			this.numericUpDownLambda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.numericUpDownLambda.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
 			// buttonUpdateSelection
 			// 
 			this.buttonUpdateSelection.BackColor = System.Drawing.Color.White;
 			this.buttonUpdateSelection.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.buttonUpdateSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonUpdateSelection.Location = new System.Drawing.Point(54, 595);
+			this.buttonUpdateSelection.Location = new System.Drawing.Point(54, 462);
 			this.buttonUpdateSelection.Name = "buttonUpdateSelection";
-			this.buttonUpdateSelection.Size = new System.Drawing.Size(373, 108);
+			this.buttonUpdateSelection.Size = new System.Drawing.Size(382, 108);
 			this.buttonUpdateSelection.TabIndex = 7;
 			this.buttonUpdateSelection.Text = "Новая выборка";
 			this.buttonUpdateSelection.UseVisualStyleBackColor = false;
@@ -220,7 +169,7 @@
 			// 
 			this.label4.AutoSize = true;
 			this.label4.ForeColor = System.Drawing.Color.Black;
-			this.label4.Location = new System.Drawing.Point(16, 312);
+			this.label4.Location = new System.Drawing.Point(16, 325);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(180, 27);
 			this.label4.TabIndex = 9;
@@ -230,7 +179,7 @@
 			// 
 			this.numericUpDownSelectionSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.numericUpDownSelectionSize.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(153, 364);
+			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(153, 377);
 			this.numericUpDownSelectionSize.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -337,7 +286,7 @@
 			this.buttonIntervals.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.buttonIntervals.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.buttonIntervals.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 8F);
-			this.buttonIntervals.Location = new System.Drawing.Point(739, 9);
+			this.buttonIntervals.Location = new System.Drawing.Point(54, 674);
 			this.buttonIntervals.Name = "buttonIntervals";
 			this.buttonIntervals.Size = new System.Drawing.Size(382, 29);
 			this.buttonIntervals.TabIndex = 18;
@@ -345,12 +294,27 @@
 			this.buttonIntervals.UseVisualStyleBackColor = false;
 			this.buttonIntervals.Click += new System.EventHandler(this.buttonIntervals_Click);
 			// 
+			// buttonExponential
+			// 
+			this.buttonExponential.BackColor = System.Drawing.Color.White;
+			this.buttonExponential.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.buttonExponential.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonExponential.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 8F);
+			this.buttonExponential.Location = new System.Drawing.Point(54, 639);
+			this.buttonExponential.Name = "buttonExponential";
+			this.buttonExponential.Size = new System.Drawing.Size(382, 29);
+			this.buttonExponential.TabIndex = 19;
+			this.buttonExponential.Text = "Экспоненциальная выборка";
+			this.buttonExponential.UseVisualStyleBackColor = false;
+			this.buttonExponential.Click += new System.EventHandler(this.buttonExponential_Click);
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(237)))), ((int)(((byte)(255)))));
 			this.ClientSize = new System.Drawing.Size(1136, 727);
+			this.Controls.Add(this.buttonExponential);
 			this.Controls.Add(this.buttonIntervals);
 			this.Controls.Add(this.labelMode);
 			this.Controls.Add(this.label10);
@@ -363,8 +327,6 @@
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.numericUpDownSelectionSize);
 			this.Controls.Add(this.buttonUpdateSelection);
-			this.Controls.Add(this.labelLambda);
-			this.Controls.Add(this.numericUpDownLambda);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.numericUpDownIntervalsAmount);
 			this.Controls.Add(this.groupBox1);
@@ -380,7 +342,6 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLambda)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelectionSize)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -392,13 +353,10 @@
 		private System.Windows.Forms.DataVisualization.Charting.Chart chartHistogram;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.RadioButton radioButtonExponentialDistribution;
 		private System.Windows.Forms.RadioButton radioButtonNormalDistribution;
 		private System.Windows.Forms.RadioButton radioButtonUniformDistribution;
 		private System.Windows.Forms.NumericUpDown numericUpDownIntervalsAmount;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label labelLambda;
-		private System.Windows.Forms.NumericUpDown numericUpDownLambda;
 		private System.Windows.Forms.Button buttonUpdateSelection;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.NumericUpDown numericUpDownSelectionSize;
@@ -411,5 +369,6 @@
 		private System.Windows.Forms.Label labelMode;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Button buttonIntervals;
+		private System.Windows.Forms.Button buttonExponential;
 	}
 }
