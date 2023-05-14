@@ -1,5 +1,6 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ProbabilityTheory.Forms
@@ -10,7 +11,6 @@ namespace ProbabilityTheory.Forms
 
 		private Selection _uniformSelection;
 		private Selection _normalSelection;
-		private Selection _exponentialSelection;
 
 		private DistributionHistogramBuilder _builder;
 
@@ -22,18 +22,12 @@ namespace ProbabilityTheory.Forms
 
 			_uniformSelection = Selection.GetUniformSelection((int)numericUpDownSelectionSize.Value);
 			_normalSelection = Selection.GetNormalSelection((int)numericUpDownSelectionSize.Value, 20);
-			_exponentialSelection = Selection.GetExponentialSelection(
-				(int)numericUpDownSelectionSize.Value,
-				(double)numericUpDownLambda.Value
-				);
 
 			radioButtonUniformDistribution.CheckedChanged += OnRadioButtonCheckedChanged;
 			radioButtonNormalDistribution.CheckedChanged += OnRadioButtonCheckedChanged;
-			radioButtonExponentialDistribution.CheckedChanged += OnRadioButtonCheckedChanged;
 
 			numericUpDownIntervalsAmount.ValueChanged += OnIntervalsAmountValueChanged;
 			numericUpDownSelectionSize.ValueChanged += UpdateSelection;
-			numericUpDownLambda.ValueChanged += UpdateSelection;
 
 			buttonUpdateSelection.Click += UpdateSelection;
 
@@ -47,8 +41,6 @@ namespace ProbabilityTheory.Forms
 		{
 			_uniformSelection = Selection.GetUniformSelection((int)numericUpDownSelectionSize.Value);
 			_normalSelection = Selection.GetNormalSelection((int)numericUpDownSelectionSize.Value, 20);
-			_exponentialSelection = Selection.GetExponentialSelection(
-				(int)numericUpDownSelectionSize.Value, (double)numericUpDownLambda.Value);
 
 			UpdateDistribution();
 		}
@@ -67,14 +59,11 @@ namespace ProbabilityTheory.Forms
 		private void UpdateDistribution()
 		{
 			Selection currentSelection = null;
-			labelLambda.Enabled = numericUpDownLambda.Enabled = radioButtonExponentialDistribution.Checked;
 
 			if (radioButtonUniformDistribution.Checked)
 				currentSelection = _uniformSelection;
 			else if (radioButtonNormalDistribution.Checked)
 				currentSelection = _normalSelection;
-			else if (radioButtonExponentialDistribution.Checked)
-				currentSelection = _exponentialSelection;
 
 			_builder.BuildHistogram(currentSelection, _intervals);
 
@@ -87,6 +76,12 @@ namespace ProbabilityTheory.Forms
 		private void buttonIntervals_Click(object sender, EventArgs e)
 		{
 			FormIntervals form = new FormIntervals();
+			form.ShowDialog();
+		}
+
+		private void buttonExponential_Click(object sender, EventArgs e)
+		{
+			FormExponential form = new FormExponential();
 			form.ShowDialog();
 		}
 	}

@@ -35,8 +35,8 @@ namespace ProbabilityTheory.Forms
 			Selection selectionBig = Selection.GetNormalSelection(500, 24, expectation, deviation);
 			Selection selectionSmall = Selection.GetNormalSelection(50, 24, expectation, deviation);
 
-			builderB.BuildHistogram(selectionBig, (int)(1 + 3.322 * Math.Log(selectionBig.Values.Count)));
-			builderS.BuildHistogram(selectionSmall, (int)(1 + 3.322 * Math.Log(selectionSmall.Values.Count)));
+			builderB.BuildHistogram(selectionBig, (int)(1 + 3.322 * Math.Log10(selectionBig.Values.Count)));
+			builderS.BuildHistogram(selectionSmall, (int)(1 + 3.322 * Math.Log10(selectionSmall.Values.Count)));
 
 			chartHistogramBig.Series[0].Name = "N = 500";
 			chartHistogramSmall.Series[0].Name = "N = 50";
@@ -72,6 +72,16 @@ namespace ProbabilityTheory.Forms
 				writer.WriteLine(ConvertToString(ConfidenceInterval.Variance(selectionSmall, 0.95)));
 				writer.WriteLine(ConvertToString(ConfidenceInterval.Variance(selectionSmall, 0.85)));
 
+				writer.WriteLine("");
+				writer.WriteLine("Распечатки выборок");
+				writer.WriteLine("N=500:");
+				foreach (double x in selectionBig.Values)
+					writer.Write($"{Math.Round(x, 3)} ");
+				writer.WriteLine("");
+				writer.WriteLine("N=50:");
+				foreach (double x in selectionSmall.Values)
+					writer.Write($"{Math.Round(x, 3)} ");
+				writer.WriteLine("");
 			}
 
 			System.Diagnostics.Process.Start("confidence-intervals.txt");
