@@ -16,7 +16,6 @@ namespace ProbabilityTheory.Classes
 		protected Selection(List<double> Values) 
 		{ 
 			this.Values = Values;
-
 			CalculateProperties();
 		}
 
