@@ -15,54 +15,43 @@ namespace ProbabilityTheory.Classes
 			this.TheoryLambda = TheoryLambda;
 		}
 
-		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, int intervals)
+		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, int superpower)
 		{
 			if (selection == null) return null;
-
-			Series series = new Series();
-			DistributionHistogramBuilder builder = DistributionHistogramBuilder.Create(series);
-
-			builder.BuildHistogram(selection, intervals);
 
 			double Dp = 0, Xp = 0,
 				   Dm = 0, Xm =0;
 
-			//int i = 0;
-
-			//foreach (DataPoint point in series.Points)
-			//{
-			//	double F = Selection.GetExponentialDensityValue(point.XValue, selection.Lambda);
-
-			//	if (i / series.Points.Count - F > Dp)
-			//	{
-			//		Dp = i / series.Points.Count - F;
-			//		Xp = point.XValue;
-			//	}
-
-			//	if (F - (i - 1) / series.Points.Count > Dm)
-			//	{
-			//		Dm = F - (i - 1) / series.Points.Count;
-			//		Xm = point.XValue;
-			//	}
-
-			//	i++;
-			//}
-
-
-			foreach (DataPoint point in series.Points)
+			selection.Values.Sort();
+			int i = 1, Kp = 0, Km = 0;
+			foreach (double x in selection.Values)
 			{
-				double temp = point.YValues[0] - Selection.GetExponentialDensityValue(point.XValue, selection.Lambda);
-				if(Dp < temp)
+				double F = 1f - Math.Exp(-selection.Lambda * x);
+				double temp = Math.Abs((double)i / (double)selection.Values.Count - F);
+
+				if (temp  > Dp)
 				{
-					Dp = temp;
-					Xp = point.XValue;
+					Dp = temp < 0 ? temp * -1 : temp;
+					Xp = x;
+					Kp = i;
 				}
+				temp = Math.Abs((double)(i - 1) / (double)selection.Values.Count - F);
+				if (temp > Dm)
+				{
+					Dm = temp < 0 ? temp * -1 : temp;
+					Xm = x;
+					Km = i;
+				}
+
+				i++;
 			}
 
-			double D = Math.Max(Dp, Dm), 
-				   X = D == Dp ? Xp : Xm;
 
-			double lambda = D*Math.Sqrt(intervals),
+			double D = Math.Max(Dp, Dm),
+				   X = D == Dp ? Xp : Xm,
+				   K = D == Dp ? Kp : Km;
+
+			double lambda = D*Math.Sqrt(selection.Values.Count),
 				   theoryLambda = Selection.GetKolmogorovValue(X, 5);
 
 			return new Hypothesis(lambda, theoryLambda) { XValue = X };

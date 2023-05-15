@@ -76,11 +76,6 @@ namespace ProbabilityTheory.Classes
 			return lambda < 0 ? 0 : lambda;
 		}
 
-		public static double GetExponentialDensityValue(double x, double lambda)
-		{
-			return lambda * Math.Exp(-lambda * x);
-		}
-
 		private void CalculateProperties() 
 		{
 			Expectation = Values.Average();

@@ -18,6 +18,9 @@ namespace ProbabilityTheory.Forms
 		{
 			InitializeComponent();
 
+			double x = -0.02234234124123;
+			MessageBox.Show(Math.Abs(x).ToString());
+
 			_builder = DistributionHistogramBuilder.Create(chartHistogram.Series[0]);
 
 			_uniformSelection = Selection.GetUniformSelection((int)numericUpDownSelectionSize.Value);
