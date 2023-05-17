@@ -1,6 +1,5 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
-using System.IO;
 using System.Windows.Forms;
 
 namespace ProbabilityTheory.Forms
@@ -17,9 +16,6 @@ namespace ProbabilityTheory.Forms
 		public FormMain()
 		{
 			InitializeComponent();
-
-			double x = -0.02234234124123;
-			MessageBox.Show(Math.Abs(x).ToString());
 
 			_builder = DistributionHistogramBuilder.Create(chartHistogram.Series[0]);
 

@@ -1,60 +1,50 @@
 ﻿using System;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Classes
 {
 	internal class Hypothesis
 	{
-		public double DistributionLambda { get; private set; }
-		public double TheoryLambda { get; private set; }
-		public double XValue { get; private set; }
+		public bool IsCorrect { get; private set; }
+		public double DistributionFunctionValue { get; private set; }
+		public double TheoryFunctionValue { get; private set; }
 
-		private Hypothesis(double DistributionLambda, double TheoryLambda)
+		private Hypothesis(double DistributionFunctionValue, double TheoryFunctionValue)
 		{
-			this.DistributionLambda = DistributionLambda;
-			this.TheoryLambda = TheoryLambda;
+			this.DistributionFunctionValue = DistributionFunctionValue;
+			this.TheoryFunctionValue = TheoryFunctionValue;
+			IsCorrect = DistributionFunctionValue <= TheoryFunctionValue;
 		}
 
-		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, int superpower)
+		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, double alpha, int kolmogogovN = 5)
 		{
 			if (selection == null) return null;
+			else if(alpha < 0 || alpha >= 1) return null;
 
-			double Dp = 0, Xp = 0,
-				   Dm = 0, Xm =0;
+			double D,
+				   Dleft = double.MinValue, 
+				   Dright = double.MinValue;
 
 			selection.Values.Sort();
-			int i = 1, Kp = 0, Km = 0;
+
+			int i = 1;
 			foreach (double x in selection.Values)
 			{
-				double F = 1f - Math.Exp(-selection.Lambda * x);
-				double temp = Math.Abs((double)i / (double)selection.Values.Count - F);
+				double f = 1f - Math.Exp(-selection.Lambda * x);
 
-				if (temp  > Dp)
-				{
-					Dp = temp < 0 ? temp * -1 : temp;
-					Xp = x;
-					Kp = i;
-				}
-				temp = Math.Abs((double)(i - 1) / (double)selection.Values.Count - F);
-				if (temp > Dm)
-				{
-					Dm = temp < 0 ? temp * -1 : temp;
-					Xm = x;
-					Km = i;
-				}
+				if ((double)i / (double)selection.Values.Count - f > Dleft)
+					Dleft = (double)i / (double)selection.Values.Count - f;
+				if (f - (double)(i - 1) / (double)selection.Values.Count > Dright)
+					Dright = f - (double)(i - 1) / (double)selection.Values.Count;
 
 				i++;
 			}
 
+			D = Math.Max(Dleft, Dright);
+			double distributionLambda = D * Math.Sqrt(selection.Values.Count),
+				distributionFunctionValue = Selection.GetKolmogorovValue(distributionLambda, kolmogogovN),
+				theoryFunctionValue = 1f - alpha;
 
-			double D = Math.Max(Dp, Dm),
-				   X = D == Dp ? Xp : Xm,
-				   K = D == Dp ? Kp : Km;
-
-			double lambda = D*Math.Sqrt(selection.Values.Count),
-				   theoryLambda = Selection.GetKolmogorovValue(X, 5);
-
-			return new Hypothesis(lambda, theoryLambda) { XValue = X };
+			return new Hypothesis(distributionFunctionValue, theoryFunctionValue);
 		}
 	}
 }
