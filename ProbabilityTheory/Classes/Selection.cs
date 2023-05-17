@@ -16,6 +16,7 @@ namespace ProbabilityTheory.Classes
 		protected Selection(List<double> Values) 
 		{ 
 			this.Values = Values;
+
 			CalculateProperties();
 		}
 
@@ -73,11 +74,6 @@ namespace ProbabilityTheory.Classes
 				lambda += Math.Pow(-1, k)* Math.Exp(-2f * Math.Pow(k * x, 2));
 
 			return lambda < 0 ? 0 : lambda;
-		}
-
-		public static double GetExponentialDensityValue(double x, double lambda)
-		{
-			return lambda * Math.Exp(-lambda * x);
 		}
 
 		private void CalculateProperties() 

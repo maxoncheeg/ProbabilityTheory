@@ -1,71 +1,50 @@
 ﻿using System;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Classes
 {
 	internal class Hypothesis
 	{
-		public double DistributionLambda { get; private set; }
-		public double TheoryLambda { get; private set; }
-		public double XValue { get; private set; }
+		public bool IsCorrect { get; private set; }
+		public double DistributionFunctionValue { get; private set; }
+		public double TheoryFunctionValue { get; private set; }
 
-		private Hypothesis(double DistributionLambda, double TheoryLambda)
+		private Hypothesis(double DistributionFunctionValue, double TheoryFunctionValue)
 		{
-			this.DistributionLambda = DistributionLambda;
-			this.TheoryLambda = TheoryLambda;
+			this.DistributionFunctionValue = DistributionFunctionValue;
+			this.TheoryFunctionValue = TheoryFunctionValue;
+			IsCorrect = DistributionFunctionValue <= TheoryFunctionValue;
 		}
 
-		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, int intervals)
+		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, double alpha, int kolmogogovN = 5)
 		{
 			if (selection == null) return null;
+			else if(alpha < 0 || alpha >= 1) return null;
 
-			Series series = new Series();
-			DistributionHistogramBuilder builder = DistributionHistogramBuilder.Create(series);
+			double D,
+				   Dleft = double.MinValue, 
+				   Dright = double.MinValue;
 
-			builder.BuildHistogram(selection, intervals);
+			selection.Values.Sort();
 
-			double Dp = 0, Xp = 0,
-				   Dm = 0, Xm =0;
-
-			//int i = 0;
-
-			//foreach (DataPoint point in series.Points)
-			//{
-			//	double F = Selection.GetExponentialDensityValue(point.XValue, selection.Lambda);
-
-			//	if (i / series.Points.Count - F > Dp)
-			//	{
-			//		Dp = i / series.Points.Count - F;
-			//		Xp = point.XValue;
-			//	}
-
-			//	if (F - (i - 1) / series.Points.Count > Dm)
-			//	{
-			//		Dm = F - (i - 1) / series.Points.Count;
-			//		Xm = point.XValue;
-			//	}
-
-			//	i++;
-			//}
-
-
-			foreach (DataPoint point in series.Points)
+			int i = 1;
+			foreach (double x in selection.Values)
 			{
-				double temp = point.YValues[0] - Selection.GetExponentialDensityValue(point.XValue, selection.Lambda);
-				if(Dp < temp)
-				{
-					Dp = temp;
-					Xp = point.XValue;
-				}
+				double f = 1f - Math.Exp(-selection.Lambda * x);
+
+				if ((double)i / (double)selection.Values.Count - f > Dleft)
+					Dleft = (double)i / (double)selection.Values.Count - f;
+				if (f - (double)(i - 1) / (double)selection.Values.Count > Dright)
+					Dright = f - (double)(i - 1) / (double)selection.Values.Count;
+
+				i++;
 			}
 
-			double D = Math.Max(Dp, Dm), 
-				   X = D == Dp ? Xp : Xm;
+			D = Math.Max(Dleft, Dright);
+			double distributionLambda = D * Math.Sqrt(selection.Values.Count),
+				distributionFunctionValue = Selection.GetKolmogorovValue(distributionLambda, kolmogogovN),
+				theoryFunctionValue = 1f - alpha;
 
-			double lambda = D*Math.Sqrt(intervals),
-				   theoryLambda = Selection.GetKolmogorovValue(X, 5);
-
-			return new Hypothesis(lambda, theoryLambda) { XValue = X };
+			return new Hypothesis(distributionFunctionValue, theoryFunctionValue);
 		}
 	}
 }

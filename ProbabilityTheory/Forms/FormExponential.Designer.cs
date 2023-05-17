@@ -52,19 +52,22 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.labelLambdaTheory = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
-			this.labelX = new System.Windows.Forms.Label();
+			this.labelCorrect = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.numericUpDownAlpha = new System.Windows.Forms.NumericUpDown();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLambda)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelectionSize)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// labelLambda
 			// 
 			this.labelLambda.AutoSize = true;
 			this.labelLambda.ForeColor = System.Drawing.Color.Black;
-			this.labelLambda.Location = new System.Drawing.Point(12, 11);
+			this.labelLambda.Location = new System.Drawing.Point(12, 121);
 			this.labelLambda.Name = "labelLambda";
 			this.labelLambda.Size = new System.Drawing.Size(132, 27);
 			this.labelLambda.TabIndex = 10;
@@ -80,7 +83,7 @@
             0,
             0,
             65536});
-			this.numericUpDownLambda.Location = new System.Drawing.Point(149, 63);
+			this.numericUpDownLambda.Location = new System.Drawing.Point(149, 173);
 			this.numericUpDownLambda.Minimum = new decimal(new int[] {
             1,
             0,
@@ -129,7 +132,7 @@
 			// 
 			this.label4.AutoSize = true;
 			this.label4.ForeColor = System.Drawing.Color.Black;
-			this.label4.Location = new System.Drawing.Point(12, 231);
+			this.label4.Location = new System.Drawing.Point(12, 341);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(180, 27);
 			this.label4.TabIndex = 15;
@@ -139,14 +142,14 @@
 			// 
 			this.numericUpDownSelectionSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.numericUpDownSelectionSize.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(149, 283);
+			this.numericUpDownSelectionSize.Location = new System.Drawing.Point(149, 393);
 			this.numericUpDownSelectionSize.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
 			this.numericUpDownSelectionSize.Minimum = new decimal(new int[] {
-            50,
+            10,
             0,
             0,
             0});
@@ -165,7 +168,7 @@
 			this.buttonUpdateSelection.BackColor = System.Drawing.Color.White;
 			this.buttonUpdateSelection.FlatAppearance.BorderColor = System.Drawing.Color.Black;
 			this.buttonUpdateSelection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonUpdateSelection.Location = new System.Drawing.Point(51, 351);
+			this.buttonUpdateSelection.Location = new System.Drawing.Point(60, 464);
 			this.buttonUpdateSelection.Name = "buttonUpdateSelection";
 			this.buttonUpdateSelection.Size = new System.Drawing.Size(373, 108);
 			this.buttonUpdateSelection.TabIndex = 13;
@@ -176,7 +179,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.ForeColor = System.Drawing.Color.Black;
-			this.label2.Location = new System.Drawing.Point(12, 118);
+			this.label2.Location = new System.Drawing.Point(12, 228);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(264, 27);
 			this.label2.TabIndex = 12;
@@ -186,7 +189,7 @@
 			// 
 			this.numericUpDownIntervalsAmount.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.numericUpDownIntervalsAmount.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.numericUpDownIntervalsAmount.Location = new System.Drawing.Point(149, 170);
+			this.numericUpDownIntervalsAmount.Location = new System.Drawing.Point(149, 280);
 			this.numericUpDownIntervalsAmount.Minimum = new decimal(new int[] {
             1,
             0,
@@ -285,9 +288,9 @@
 			// labelLambdaDistribution
 			// 
 			this.labelLambdaDistribution.ForeColor = System.Drawing.Color.Black;
-			this.labelLambdaDistribution.Location = new System.Drawing.Point(210, 602);
+			this.labelLambdaDistribution.Location = new System.Drawing.Point(246, 602);
 			this.labelLambdaDistribution.Name = "labelLambdaDistribution";
-			this.labelLambdaDistribution.Size = new System.Drawing.Size(276, 27);
+			this.labelLambdaDistribution.Size = new System.Drawing.Size(240, 27);
 			this.labelLambdaDistribution.TabIndex = 27;
 			this.labelLambdaDistribution.Text = "0.000";
 			this.labelLambdaDistribution.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -298,16 +301,16 @@
 			this.label6.ForeColor = System.Drawing.Color.Black;
 			this.label6.Location = new System.Drawing.Point(12, 602);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(192, 27);
+			this.label6.Size = new System.Drawing.Size(228, 27);
 			this.label6.TabIndex = 26;
-			this.label6.Text = "λ распределения";
+			this.label6.Text = "F(λ распределения)";
 			// 
 			// labelLambdaTheory
 			// 
 			this.labelLambdaTheory.ForeColor = System.Drawing.Color.Black;
-			this.labelLambdaTheory.Location = new System.Drawing.Point(210, 629);
+			this.labelLambdaTheory.Location = new System.Drawing.Point(251, 629);
 			this.labelLambdaTheory.Name = "labelLambdaTheory";
-			this.labelLambdaTheory.Size = new System.Drawing.Size(276, 27);
+			this.labelLambdaTheory.Size = new System.Drawing.Size(235, 27);
 			this.labelLambdaTheory.TabIndex = 29;
 			this.labelLambdaTheory.Text = "0.000";
 			this.labelLambdaTheory.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -318,19 +321,18 @@
 			this.label11.ForeColor = System.Drawing.Color.Black;
 			this.label11.Location = new System.Drawing.Point(12, 629);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(192, 27);
+			this.label11.Size = new System.Drawing.Size(228, 27);
 			this.label11.TabIndex = 28;
-			this.label11.Text = "λ теоретическая";
+			this.label11.Text = "F(λ теоретическая)";
 			// 
-			// labelX
+			// labelCorrect
 			// 
-			this.labelX.ForeColor = System.Drawing.Color.Black;
-			this.labelX.Location = new System.Drawing.Point(283, 656);
-			this.labelX.Name = "labelX";
-			this.labelX.Size = new System.Drawing.Size(203, 27);
-			this.labelX.TabIndex = 31;
-			this.labelX.Text = "0.000";
-			this.labelX.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			this.labelCorrect.ForeColor = System.Drawing.Color.Black;
+			this.labelCorrect.Location = new System.Drawing.Point(256, 656);
+			this.labelCorrect.Name = "labelCorrect";
+			this.labelCorrect.Size = new System.Drawing.Size(230, 27);
+			this.labelCorrect.TabIndex = 31;
+			this.labelCorrect.TextAlign = System.Drawing.ContentAlignment.TopRight;
 			// 
 			// label9
 			// 
@@ -339,16 +341,59 @@
 			this.label9.ForeColor = System.Drawing.Color.Black;
 			this.label9.Location = new System.Drawing.Point(12, 656);
 			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(265, 25);
+			this.label9.Size = new System.Drawing.Size(210, 25);
 			this.label9.TabIndex = 30;
-			this.label9.Text = "X максимального разрыва";
+			this.label9.Text = "Состояние гипотезы";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.ForeColor = System.Drawing.Color.Black;
+			this.label3.Location = new System.Drawing.Point(12, 11);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(384, 27);
+			this.label3.TabIndex = 33;
+			this.label3.Text = "Значение α (уровень значимости)";
+			// 
+			// numericUpDownAlpha
+			// 
+			this.numericUpDownAlpha.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.numericUpDownAlpha.DecimalPlaces = 2;
+			this.numericUpDownAlpha.Font = new System.Drawing.Font("Cascadia Mono SemiLight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.numericUpDownAlpha.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.numericUpDownAlpha.Location = new System.Drawing.Point(149, 63);
+			this.numericUpDownAlpha.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            131072});
+			this.numericUpDownAlpha.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.numericUpDownAlpha.Name = "numericUpDownAlpha";
+			this.numericUpDownAlpha.Size = new System.Drawing.Size(186, 38);
+			this.numericUpDownAlpha.TabIndex = 32;
+			this.numericUpDownAlpha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.numericUpDownAlpha.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
 			// 
 			// FormExponential
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1140, 696);
-			this.Controls.Add(this.labelX);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.numericUpDownAlpha);
+			this.Controls.Add(this.labelCorrect);
 			this.Controls.Add(this.label9);
 			this.Controls.Add(this.labelLambdaTheory);
 			this.Controls.Add(this.label11);
@@ -381,6 +426,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownSelectionSize)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownIntervalsAmount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownAlpha)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -409,7 +455,9 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label labelLambdaTheory;
 		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.Label labelX;
+		private System.Windows.Forms.Label labelCorrect;
 		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.NumericUpDown numericUpDownAlpha;
 	}
 }

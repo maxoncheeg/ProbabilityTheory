@@ -22,7 +22,5 @@ namespace ProbabilityTheory.Classes
 
 			return new ExponentialSelection(values, lambda) { Name = "Экспоненциальное" };
 		}
-
-		////public static ExponentialSelection 
 	}
 }

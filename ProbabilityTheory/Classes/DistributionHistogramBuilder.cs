@@ -33,7 +33,6 @@ namespace ProbabilityTheory.Classes
 			double right = min + _intervalLength;
 
 			for (int i = 0, counter = 0; i < selection.Values.Count; i++, counter++)
-			{
 				if (selection.Values[i] > right || i + 1 == selection.Values.Count)
 				{
 					double x = Math.Round(right - _intervalLength / 2, 3),
@@ -43,7 +42,6 @@ namespace ProbabilityTheory.Classes
 					counter = 0;
 					right += _intervalLength;
 				}
-			}
 		}
 
 		public double GetCurrentMode()
