@@ -1,87 +1,88 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
+using System.IO;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ProbabilityTheory.Forms
 {
 	public partial class FormMain : Form
 	{
 		private int _intervals = 5;
-		private double _lambda = 0.1f;
-		private DistributionManager _manager;
+
+		private Selection _uniformSelection;
+		private Selection _normalSelection;
+
+		private DistributionHistogramBuilder _builder;
 
 		public FormMain()
 		{
 			InitializeComponent();
 
-			_manager = DistributionManager.Create();
+			_builder = DistributionHistogramBuilder.Create(chartHistogram.Series[0]);
 
-			radioButtonUniformDistribution.CheckedChanged += RadioButtonUniformDistribution_CheckedChanged; ;
-			radioButtonNormalDistribution.CheckedChanged += RadioButtonNormalDistribution_CheckedChanged; ;
-			radioButtonExponentialDistribution.CheckedChanged += RadioButtonExponentialDistribution_CheckedChanged; ;
+			_uniformSelection = Selection.GetUniformSelection((int)numericUpDownSelectionSize.Value);
+			_normalSelection = Selection.GetNormalSelection((int)numericUpDownSelectionSize.Value, 20);
 
-			numericUpDownIntervalsAmount.ValueChanged += NumericUpDownIntervalsAmount_ValueChanged;
-			numericUpDownLambda.ValueChanged += NumericUpDownLambda_ValueChanged;
+			radioButtonUniformDistribution.CheckedChanged += OnRadioButtonCheckedChanged;
+			radioButtonNormalDistribution.CheckedChanged += OnRadioButtonCheckedChanged;
 
-			UpdateDistribution(null,null);
+			numericUpDownIntervalsAmount.ValueChanged += OnIntervalsAmountValueChanged;
+			numericUpDownSelectionSize.ValueChanged += UpdateSelection;
+
+			buttonUpdateSelection.Click += UpdateSelection;
+
+			UpdateDistribution();
 		}
 
-		private void RadioButtonExponentialDistribution_CheckedChanged(object sender, EventArgs e)
+		private void FormMain_Load(object sender, EventArgs e) =>
+			FormPlacer.ToScreenCenter(this);
+
+		private void UpdateSelection(object sender, EventArgs e)
 		{
-			if (radioButtonExponentialDistribution.Checked)
-			{
-				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
-			}
+			_uniformSelection = Selection.GetUniformSelection((int)numericUpDownSelectionSize.Value);
+			_normalSelection = Selection.GetNormalSelection((int)numericUpDownSelectionSize.Value, 20);
+
+			UpdateDistribution();
 		}
 
-		private void RadioButtonNormalDistribution_CheckedChanged(object sender, EventArgs e)
+		private void OnRadioButtonCheckedChanged(object sender, EventArgs e)
 		{
-			if (radioButtonNormalDistribution.Checked)
-			{ 
-				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
-			}
+			if ((sender as RadioButton).Checked) UpdateDistribution();
 		}
 
-		private void RadioButtonUniformDistribution_CheckedChanged(object sender, EventArgs e)
-		{
-			if (radioButtonUniformDistribution.Checked)
-			{
-				_manager.GetUniformHistogram(chartHistogram.Series[0], _intervals);
-			}
-		}
-
-		private void NumericUpDownLambda_ValueChanged(object sender, EventArgs e)
-		{
-			_lambda = (double)numericUpDownLambda.Value;
-			UpdateDistribution(null, null);
-		}
-
-		private void NumericUpDownIntervalsAmount_ValueChanged(object sender, EventArgs e)
+		private void OnIntervalsAmountValueChanged(object sender, EventArgs e)
 		{
 			_intervals = (int)numericUpDownIntervalsAmount.Value;
-			UpdateDistribution(null, null);
+			UpdateDistribution();
 		}
 
-		private void UpdateDistribution(object sender, EventArgs e)
+		private void UpdateDistribution()
 		{
+			Selection currentSelection = null;
+
 			if (radioButtonUniformDistribution.Checked)
-				_manager.GetUniformHistogram(chartHistogram.Series[0], _intervals);
-			else if(radioButtonNormalDistribution.Checked)
-				_manager.GetNormalHistogram(chartHistogram.Series[0], _intervals);
-			else if(radioButtonExponentialDistribution.Checked)
-				_manager.GetExponentialHistogram(chartHistogram.Series[0], _lambda, _intervals);
+				currentSelection = _uniformSelection;
+			else if (radioButtonNormalDistribution.Checked)
+				currentSelection = _normalSelection;
+
+			_builder.BuildHistogram(currentSelection, _intervals);
+
+			labelExpectation.Text = Math.Round(currentSelection.Expectation, 4).ToString();
+			labelVariance.Text = Math.Round(currentSelection.Variance, 4).ToString();
+			labelMedian.Text = Math.Round(currentSelection.Median, 4).ToString();
+			labelMode.Text = Math.Round(_builder.GetCurrentMode(), 4).ToString();
 		}
 
-		private void FormMain_Load(object sender, EventArgs e)
+		private void buttonIntervals_Click(object sender, EventArgs e)
 		{
-			FormPlacer.ToScreenCenter(this);
+			FormIntervals form = new FormIntervals();
+			form.ShowDialog();
 		}
 
-		private void buttonUpdateSelection_Click(object sender, EventArgs e)
+		private void buttonExponential_Click(object sender, EventArgs e)
 		{
-			_manager.UpdateSelection();
-			UpdateDistribution(null, null);
+			FormExponential form = new FormExponential();
+			form.ShowDialog();
 		}
 	}
 }
