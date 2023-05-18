@@ -213,7 +213,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "FormIntervals";
-			this.Text = "FormIntervals";
+			this.Text = "Доверительные интервалы";
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownExpectation)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownDeviation)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogramBig)).EndInit();
