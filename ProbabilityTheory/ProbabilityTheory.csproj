@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\DataPointsCollectionSort.cs" />
     <Compile Include="Classes\DistributionHistogramBuilder.cs" />
     <Compile Include="Classes\ExponentialSelection.cs" />
     <Compile Include="Classes\FormPlacer.cs" />

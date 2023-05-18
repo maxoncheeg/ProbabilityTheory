@@ -1,5 +1,6 @@
 ﻿using ProbabilityTheory.Classes;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProbabilityTheory.Forms
@@ -22,10 +23,17 @@ namespace ProbabilityTheory.Forms
 			numericUpDownLambda.ValueChanged += OnPropertiesChange;
 			numericUpDownSelectionSize.ValueChanged += OnPropertiesChange;
 
+			label3.Click += Label3_Click;
 
 			buttonUpdateSelection.Click += OnPropertiesChange;
 
 			OnIntervalsAmountChanged(this, null);
+		}
+
+		private async void Label3_Click(object sender, EventArgs e)
+		{
+			string x = await GetFunctionAverageAsync();
+			MessageBox.Show(x, "Пасхалка: среднее значение", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private void OnAlphaChanged(object sender, EventArgs e)
@@ -34,20 +42,6 @@ namespace ProbabilityTheory.Forms
 			labelLambdaDistribution.Text = _hypothesis.DistributionFunctionValue.ToString();
 			labelLambdaTheory.Text = _hypothesis.TheoryFunctionValue.ToString();
 			labelCorrect.Text = _hypothesis.IsCorrect ? "Верна" : "Неверна";
-
-
-			//double s1 = 0, s2 = 0;
-			//for (int i = 0; i < 10000; i++)
-			//{
-			//	_selection = ExponentialSelection.GetExponentialSelection(10, 0.7);
-			//	s1 += Hypothesis.KolmogorovHypothesis(_selection, (double)numericUpDownAlpha.Value).DistributionFunctionValue;
-
-			//	_selection = ExponentialSelection.GetExponentialSelection(10000, 0.7);
-			//	s2 += Hypothesis.KolmogorovHypothesis(_selection, (double)numericUpDownAlpha.Value).DistributionFunctionValue;
-			//}
-
-			//MessageBox.Show("Выборка из 10 чисел.\n10000 попыток.\nсреднее F(lambda)=" + s1 / 10000);
-			//MessageBox.Show("Выборка из 10000 чисел.\n10000 попыток.\nсреднее F(lambda)=" + s2 / 10000);
 		}
 
 		private void OnIntervalsAmountChanged(object sender, EventArgs e)
@@ -66,6 +60,30 @@ namespace ProbabilityTheory.Forms
 		{
 			_selection = ExponentialSelection.GetExponentialSelection((int)numericUpDownSelectionSize.Value, (double)numericUpDownLambda.Value);
 			OnIntervalsAmountChanged(this, null);
+		}
+
+		private async Task<string> GetFunctionAverageAsync()
+		{
+			string result = "";
+
+			await Task.Run(() =>
+			{
+				ExponentialSelection selection;
+				double sum1 = 0, sum2 = 0, alpha = (double)numericUpDownAlpha.Value;
+				for (int i = 0; i < 10000; i++)
+				{
+					selection = ExponentialSelection.GetExponentialSelection(10, 0.7);
+					sum1 += Hypothesis.KolmogorovHypothesis(selection, alpha).DistributionFunctionValue;
+
+					selection = ExponentialSelection.GetExponentialSelection(10000, 0.7);
+					sum2 += Hypothesis.KolmogorovHypothesis(selection, alpha).DistributionFunctionValue;
+				}
+
+				result = $"Выборка из 10 чисел, среднее F(λраспр): {sum1 / 10000}" +
+				$"\nВыборка из 10000 чисел, среднее F(λраспр): {sum2 / 10000}";
+			});
+
+			return result;
 		}
 
 		private void FormExponential_Load(object sender, EventArgs e)

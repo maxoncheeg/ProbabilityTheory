@@ -420,7 +420,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.Name = "FormExponential";
-			this.Text = "FormExponential";
+			this.Text = "Экспоненциальная выборка";
 			this.Load += new System.EventHandler(this.FormExponential_Load);
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownLambda)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.chartHistogram)).EndInit();
