@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace ProbabilityTheory.Classes
 {
@@ -43,6 +44,7 @@ namespace ProbabilityTheory.Classes
 			double distributionLambda = D * Math.Sqrt(selection.Values.Count),
 				distributionFunctionValue = Selection.GetKolmogorovValue(distributionLambda, kolmogogovN),
 				theoryFunctionValue = 1f - alpha;
+			MessageBox.Show(distributionLambda.ToString());
 
 			return new Hypothesis(distributionFunctionValue, theoryFunctionValue);
 		}
