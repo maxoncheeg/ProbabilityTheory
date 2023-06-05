@@ -18,7 +18,7 @@ namespace ProbabilityTheory.Classes
 		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, double alpha, int kolmogogovN = 5)
 		{
 			if (selection == null) return null;
-			else if(alpha < 0 || alpha >= 1) return null;
+			else if(alpha <= 0 || alpha >= 1) return null;
 
 			double D,
 				   Dleft = double.MinValue, 
