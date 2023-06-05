@@ -42,7 +42,7 @@ namespace ProbabilityTheory.Classes
 			D = Math.Max(Dleft, Dright);
 			double distributionLambda = D * Math.Sqrt(selection.Values.Count),
 				distributionFunctionValue = Selection.GetKolmogorovValue(distributionLambda, kolmogogovN),
-				theoryFunctionValue = 1f - alpha;
+				theoryFunctionValue = 1f - alpha;//очень хорошо
 
 			return new Hypothesis(distributionFunctionValue, theoryFunctionValue);
 		}
