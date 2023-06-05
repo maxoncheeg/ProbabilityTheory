@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace ProbabilityTheory.Classes
 {
@@ -18,7 +19,7 @@ namespace ProbabilityTheory.Classes
 		public static Hypothesis KolmogorovHypothesis(ExponentialSelection selection, double alpha, int kolmogogovN = 5)
 		{
 			if (selection == null) return null;
-			else if(alpha < 0 || alpha >= 1) return null;
+			else if(alpha <= 0 || alpha >= 1) return null;
 
 			double D,
 				   Dleft = double.MinValue, 
@@ -43,6 +44,7 @@ namespace ProbabilityTheory.Classes
 			double distributionLambda = D * Math.Sqrt(selection.Values.Count),
 				distributionFunctionValue = Selection.GetKolmogorovValue(distributionLambda, kolmogogovN),
 				theoryFunctionValue = 1f - alpha;
+			MessageBox.Show(distributionLambda.ToString());
 
 			return new Hypothesis(distributionFunctionValue, theoryFunctionValue);
 		}

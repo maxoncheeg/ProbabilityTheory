@@ -67,13 +67,13 @@ namespace ProbabilityTheory.Classes
 			return new Selection(values) { Name = "Нормальное с параметрами" };
 		}
 
-		public static double GetKolmogorovValue(double x, int n)
+		public static double GetKolmogorovValue(double lambda, int n)
 		{
-			double lambda = 0;
+			double f = 0;
 			for (int k = -n; k <= n; k++)
-				lambda += Math.Pow(-1, k)* Math.Exp(-2f * Math.Pow(k * x, 2));
+				f += Math.Pow(-1, k)* Math.Exp(-2f * Math.Pow(k * lambda, 2));
 
-			return lambda < 0 ? 0 : lambda;
+			return f < 0 ? 0 : f;
 		}
 
 		private void CalculateProperties() 

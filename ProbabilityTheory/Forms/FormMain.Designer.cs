@@ -206,16 +206,16 @@
 			this.label5.ForeColor = System.Drawing.Color.Black;
 			this.label5.Location = new System.Drawing.Point(486, 595);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(288, 27);
+			this.label5.Size = new System.Drawing.Size(384, 27);
 			this.label5.TabIndex = 10;
-			this.label5.Text = "Математическое ожидание";
+			this.label5.Text = "Среднее математическое ожидание";
 			// 
 			// labelExpectation
 			// 
 			this.labelExpectation.ForeColor = System.Drawing.Color.Black;
-			this.labelExpectation.Location = new System.Drawing.Point(833, 595);
+			this.labelExpectation.Location = new System.Drawing.Point(876, 595);
 			this.labelExpectation.Name = "labelExpectation";
-			this.labelExpectation.Size = new System.Drawing.Size(288, 27);
+			this.labelExpectation.Size = new System.Drawing.Size(245, 27);
 			this.labelExpectation.TabIndex = 11;
 			this.labelExpectation.Text = "0.000";
 			this.labelExpectation.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -236,9 +236,9 @@
 			this.label8.ForeColor = System.Drawing.Color.Black;
 			this.label8.Location = new System.Drawing.Point(486, 622);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(120, 27);
+			this.label8.Size = new System.Drawing.Size(252, 27);
 			this.label8.TabIndex = 12;
-			this.label8.Text = "Дисперсия";
+			this.label8.Text = "Выборочная дисперсия";
 			// 
 			// labelMedian
 			// 
@@ -256,9 +256,9 @@
 			this.label7.ForeColor = System.Drawing.Color.Black;
 			this.label7.Location = new System.Drawing.Point(486, 649);
 			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(96, 27);
+			this.label7.Size = new System.Drawing.Size(228, 27);
 			this.label7.TabIndex = 14;
-			this.label7.Text = "Медиана";
+			this.label7.Text = "Выборочная медиана";
 			// 
 			// labelMode
 			// 

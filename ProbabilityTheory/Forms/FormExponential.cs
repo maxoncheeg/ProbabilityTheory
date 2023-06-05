@@ -70,12 +70,13 @@ namespace ProbabilityTheory.Forms
 			{
 				ExponentialSelection selection;
 				double sum1 = 0, sum2 = 0, alpha = (double)numericUpDownAlpha.Value;
+				double lambda = (double)numericUpDownLambda.Value;
 				for (int i = 0; i < 10000; i++)
 				{
-					selection = ExponentialSelection.GetExponentialSelection(10, 0.7);
+					selection = ExponentialSelection.GetExponentialSelection(10, lambda);
 					sum1 += Hypothesis.KolmogorovHypothesis(selection, alpha).DistributionFunctionValue;
 
-					selection = ExponentialSelection.GetExponentialSelection(10000, 0.7);
+					selection = ExponentialSelection.GetExponentialSelection(10000, lambda);
 					sum2 += Hypothesis.KolmogorovHypothesis(selection, alpha).DistributionFunctionValue;
 				}
 
